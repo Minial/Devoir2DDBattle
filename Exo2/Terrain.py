@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Created on Mon Nov  4 14:27:38 2019
 
@@ -16,15 +14,19 @@ class Terrain :
     tailleY = 1000
     listeMobs = []
     
-    def __init__():
-        listeMobs.append(Solar(500,250))
-        print (listeMobs[0].life)
+    def __init__(self):
+        self.listeMobs.append(Solar(500,250))
+        print (self.listeMobs[0].life)
         
-        for mob in listeMobs:
+        
+    def Tour(self):
+        self.listeMobs[0].life=self.listeMobs[0].life-100
+        print (self.listeMobs[0].life)
+        for mob in self.listeMobs:
             if mob.life<=0 :
-                del listeMobs[listeMobs.index(mob)]
-        
-
-            
+                print("il est mort !")
+                del self.listeMobs[self.listeMobs.index(mob)]
+            else:
+                print("invaincu !")
     
         

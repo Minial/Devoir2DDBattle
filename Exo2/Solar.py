@@ -38,8 +38,12 @@ class Solar:
             dy = self.position[1] - _listePosition[i].position[1]
             l = np.sqrt(dx*dx + dy*dy)
             listeDistance.append([l - self.size/2 -_listePosition[i].size/2, l])
+
         minDist = min(listeDistance)
-        if (minDist[0] <= self.speed + self.rangeMelee):
+        if (minDist[0] <= self.rangeMelee):
+            destination = self.position
+            
+        elif (minDist[0] <= self.speed + self.rangeMelee):
             x = self.position[0] + (minDist[0] + self.size/2 - self.rangeMelee)*(listePosition(listeDistance.index(minDist)).position[0] - self.postion[0]) / minDist[1]
             y = self.position[1] + (minDist[0] + self.size/2 - self.rangeMelee)*(listePosition(listeDistance.index(minDist)).position[1] - self.postion[1]) / minDist[1]
             destination = [x,y]
@@ -47,5 +51,15 @@ class Solar:
             x = self.position[0] + (minDist[0] + self.size/2 - self.rangeRanged)*(listePosition(listeDistance.index(minDist)).position[0] - self.postion[0]) / minDist[1]
             y = self.position[1] + (minDist[0] + self.size/2 - self.rangeRanged)*(listePosition(listeDistance.index(minDist)).position[1] - self.postion[1]) / minDist[1]
             destination = [x,y]
+        elif (minDist[0] <= 2*self.speed + self.rangeMelee):
+            x = self.position[0] + (minDist[0] + self.size/2 - self.rangeMelee)*(listePosition(listeDistance.index(minDist)).position[0] - self.postion[0]) / minDist[1]
+            y = self.position[1] + (minDist[0] + self.size/2 - self.rangeMelee)*(listePosition(listeDistance.index(minDist)).position[1] - self.postion[1]) / minDist[1]
+            destination = [x,y]
+        elif (minDist[0] <= 2*self.speed + self.rangeRanged):
+            x = self.position[0] + (minDist[0] + self.size/2 - self.rangeMelee)*(listePosition(listeDistance.index(minDist)).position[0] - self.postion[0]) / minDist[1]
+            y = self.position[1] + (minDist[0] + self.size/2 - self.rangeMelee)*(listePosition(listeDistance.index(minDist)).position[1] - self.postion[1]) / minDist[1]
+            destination = [x,y]
         else :
-            
+            x = 2*self.speed*(listePosition(listeDistance.index(minDist)).position[0] - self.postion[0]))/minDist[1]
+            y = 2*self.speed*(listePosition(listeDistance.index(minDist)).position[1] - self.postion[1]))/minDist[1]
+            destination = [x,y]

@@ -23,18 +23,26 @@ class Terrain :
         self.listeMobs = []#tout le monde !
         self.listeGentils=[]#les gentils !
         self.listeMéchants=[]#les vilains pas bô
-        self.listeMobs.append(Solar(500,250))
+        self.listeMobs.append(Solar(500,250,self.listeGentils,self.listeMéchants))
         self.listeGentils.append(self.listeMobs[0])
         print ("Prenez garde au solaire avec ses",self.listeMobs[0].life,"PV !")
         self.summonWorgRider(9)
+        self.summonWarLord(1)
     
     
     def summonWorgRider(self,number):#on invoque un nombre number de WorgRider
         for i in range(number):
             listeCoord=self.distance()
-            self.listeMobs.append(WorgRider(listeCoord[0],listeCoord[1]))
+            self.listeMobs.append(WorgRider(listeCoord[0],listeCoord[1],self.listeMéchants,self.listeGentils))
             self.listeMéchants.append(self.listeMobs[len(self.listeMobs)-1])#on ajoute mob dans liste méchant
-            print (self.listeMobs[i+1].life)
+            print (self.listeMobs[len(self.listeMobs)-1].life)
+            
+    def summonWarLord(self,number):#on invoque un nombre number de warlord
+        for i in range(number):
+            listeCoord=self.distance()
+            self.listeMobs.append(Warlord(listeCoord[0],listeCoord[1],self.listeMéchants,self.listeGentils))
+            self.listeMéchants.append(self.listeMobs[len(self.listeMobs)-1])#on ajoute mob dans liste méchant
+            print (self.listeMobs[len(self.listeMobs)-1].life)
         
     
     

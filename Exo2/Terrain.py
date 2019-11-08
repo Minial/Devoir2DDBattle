@@ -4,22 +4,64 @@ Created on Mon Nov  4 14:27:38 2019
 @author: adrien
 """
 
-from WorgRider import WorgRider
+#link : https://docs.google.com/document/d/12GTrjIkMww9EiQ0zGA33QFkvUQD_FiimGRWDcZ0vOtM/edit#
+
+from random import *
+from numpy import *
+
+from WorgRider import WorgRider # 9 au premier fight
 from Solar import Solar
-from Warlord import Warlord
-from Barbare import Barbare
+from Warlord import Warlord # 1
+from Barbare import Barbare # 4
 
 class Terrain :
     tailleX = 1000
     tailleY = 1000
-    listeMobs = []
+    #id = -1 #sert pour l'identification d'un mob
     
     def __init__(self):
-        self.listeMobs.append(Solar(500,250))
-        print (self.listeMobs[0].life)
+        self.listeMobs = []#tout le monde !
+        self.listeGentils=[]#les gentils !
+        self.listeMéchants=[]#les vilains pas bô
+        self.listeMobs.append(Solar(500,250,self.listeGentils,self.listeMéchants))
+        self.listeGentils.append(self.listeMobs[0])
+        print ("Prenez garde au solaire avec ses",self.listeMobs[0].life,"PV !")
+        self.summonWorgRider(9)
+        self.summonWarLord(1)
+    
+    
+    def summonWorgRider(self,number):#on invoque un nombre number de WorgRider
+        for i in range(number):
+            listeCoord=self.distance()
+            self.listeMobs.append(WorgRider(listeCoord[0],listeCoord[1],self.listeMéchants,self.listeGentils))
+            self.listeMéchants.append(self.listeMobs[len(self.listeMobs)-1])#on ajoute mob dans liste méchant
+            print (self.listeMobs[len(self.listeMobs)-1].life)
+            
+    def summonWarLord(self,number):#on invoque un nombre number de warlord
+        for i in range(number):
+            listeCoord=self.distance()
+            self.listeMobs.append(Warlord(listeCoord[0],listeCoord[1],self.listeMéchants,self.listeGentils))
+            self.listeMéchants.append(self.listeMobs[len(self.listeMobs)-1])#on ajoute mob dans liste méchant
+            print (self.listeMobs[len(self.listeMobs)-1].life)
         
+    
+    
+    def distance(self):#calcule la positon pour invoquer un nouvelle ennemi qui ne rentre pas dans un autre
+        chevauchement=True
+        while chevauchement:
+            listeCoord=[500+randint(-250,250),750+randint(-100,100)]
+            chevauchement=False
+            for mob in self.listeMobs:
+                dx=mob.position[0]-listeCoord[0]
+                dy=mob.position[1]-listeCoord[1]
+                distance=sqrt(dx**2+dy**2)
+                if(distance<=15):
+                    chevauchement=True;
+        return listeCoord
         
     def Tour(self):
+        
+        
         self.listeMobs[0].life=self.listeMobs[0].life-100
         print (self.listeMobs[0].life)
         for mob in self.listeMobs:
@@ -29,4 +71,3 @@ class Terrain :
             else:
                 print("invaincu !")
     
-        

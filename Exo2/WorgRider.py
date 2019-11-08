@@ -2,7 +2,7 @@ import random
 
 class WorgRider:
 
-    def __init__(self, _x, _y), _la, _le:
+    def __init__(self, _x, _y, _la, _le):
         self.size = 15
         self.position = [_x, _y]
         self.life = random.randint(1,10) + random.randint(1,10) + 2

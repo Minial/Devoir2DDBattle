@@ -20,15 +20,25 @@ class Terrain :
     #id = -1 #sert pour l'identification d'un mob
     
     def __init__(self):
-        self.listeMobs = []
+        self.listeMobs = []#tout le monde !
+        self.listeGentils=[]#les gentils !
+        self.listeMéchants=[]#les vilains pas bô
         self.listeMobs.append(Solar(500,250))
-        for i in range(9):
+        self.listeGentils.append(self.listeMobs[0])
+        print ("Prenez garde au solaire avec ses",self.listeMobs[0].life,"PV !")
+        self.summonWorgRider(9)
+    
+    
+    def summonWorgRider(self,number):#on invoque un nombre number de WorgRider
+        for i in range(number):
             listeCoord=self.distance()
             self.listeMobs.append(WorgRider(listeCoord[0],listeCoord[1]))
+            self.listeMéchants.append(self.listeMobs[len(self.listeMobs)-1])#on ajoute mob dans liste méchant
             print (self.listeMobs[i+1].life)
-        print (self.listeMobs[0].life)
         
-    def distance(self):
+    
+    
+    def distance(self):#calcule la positon pour invoquer un nouvelle ennemi qui ne rentre pas dans un autre
         chevauchement=True
         while chevauchement:
             listeCoord=[500+randint(-250,250),750+randint(-100,100)]
@@ -42,6 +52,8 @@ class Terrain :
         return listeCoord
         
     def Tour(self):
+        
+        
         self.listeMobs[0].life=self.listeMobs[0].life-100
         print (self.listeMobs[0].life)
         for mob in self.listeMobs:

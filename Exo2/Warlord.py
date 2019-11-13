@@ -1,15 +1,13 @@
 import random
+from Mob import Mob
 
 class Warlord:
 
     def __init__(self, _x, _y, _la, _le):
-        self.size = 15
-        self.position = [_x, _y]
+        Mob.__init__(self, _x, _y, _la, _le, 15, 30, 27, 30, 330)
         self.life = random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + 65
-        self.speed = 30
-        self.ac = 27
-        self.listAllies = _la
-        self.listEnnemie = _le
+        self.lifeMax=self.life
+
 
     def melee_attack(self, _ac):
         d20 = random.randint(1,20)

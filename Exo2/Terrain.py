@@ -26,8 +26,8 @@ class Terrain :
         self.listeMobs.append(Solar(500,250,self.listeGentils,self.listeMéchants))
         self.listeGentils.append(self.listeMobs[0])
         print ("Prenez garde au solaire avec ses",self.listeMobs[0].life,"PV !")
-        self.summonWorgRider(9)
-        self.summonWarLord(1)
+        #self.summonWorgRider(9)
+        #self.summonWarLord(1)
     
     
     def summonWorgRider(self,number):#on invoque un nombre number de WorgRider
@@ -63,6 +63,7 @@ class Terrain :
         
         
         self.listeMobs[0].life=self.listeMobs[0].life-100
+        self.listeMobs[0].position[0]=self.listeMobs[0].position[0]+10
         print (self.listeMobs[0].life)
         for mob in self.listeMobs:
             if mob.life<=0 :

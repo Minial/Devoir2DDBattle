@@ -1,19 +1,14 @@
 import random
 import numpy as np
+from Mob import Mob
 
-class Solar:
+class Solar(Mob):
 
     def __init__(self, _x, _y, _la, _le):
-        self.size = 30
-        self.position = [_x, _y]
+        Mob.__init__(self, _x, _y, _la, _le, 30, 150, 44, 30, 330)
         self.destination = self.position
         self.life = random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + 242
-        self.speed = 150
-        self.ac = 44
-        self.rangeMelee = 30
-        self.rangeRanged = 330
-        self.listAllies = _la
-        self.listEnnemie = _le
+        self.lifeMax=self.life#pour éviter de soigner un mob de plus que son max
 
     def melee_attack(self, _ac): # Renvoie les dégats que fait le Solar
         d20 = random.randint(1,20)

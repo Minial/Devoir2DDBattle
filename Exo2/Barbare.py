@@ -19,12 +19,13 @@ class Barbare:
 #            if (d20 + 19 > _ac):
 #                return (3*(random.randint(1,8) + 10))#ça c'est bugué
 
-    def ranged_attack(self, _ac):
-        d20 = random.randint(1,20)
-        if (d20 == 1):
-            return 0
-        else :
-            if (d20 == 20):
-                return (3*(random.randint(1,8) + 6))
-            if (d20 + 19 > _ac):
-                return (random.randint(1,8) + 6)
+    def rangedAttack(self, _ac):
+        return(Mob.rangedAttack(self, 19, 1, 8, 6, 3))
+#        d20 = random.randint(1,20)
+#        if (d20 == 1):
+#            return 0
+#        else :
+#            if (d20 == 20):
+#                return (3*(random.randint(1,8) + 6))
+#            if (d20 + 19 > _ac):
+#                return (random.randint(1,8) + 6)

@@ -20,12 +20,13 @@ class Warlord:
 #            if (d20 + 20 > _ac):
 #                return (random.randint(1,8) + 10)
 
-    def ranged_attack(self, _ac):
-        d20 = random.randint(1,20)
-        if (d20 == 1):
-            return 0
-        else :
-            if (d20 == 20):
-                return (2*(random.randint(1,6) + 5))
-            if (d20 + 19 > _ac):
-                return (random.randint(1,6) + 5)
+    def rangedAttack(self, _ac):
+        return(Mob.rangedAttack(self, 19, 1, 6, 5))
+#        d20 = random.randint(1,20)
+#        if (d20 == 1):
+#            return 0
+#        else :
+#            if (d20 == 20):
+#                return (2*(random.randint(1,6) + 5))
+#            if (d20 + 19 > _ac):
+#                return (random.randint(1,6) + 5)

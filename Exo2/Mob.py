@@ -1,3 +1,20 @@
+#    def move(self):
+#        if (self.position != self.destination):
+#            dx = self.position[0] - self.destination[0]
+#            dy = self.position[1] - self.destination[1]
+#            l = np.sqrt(dx*dx + dy*dy)
+#            px = dx*self.speed / l
+#            py = dy*self.speed / l
+#            if (self.speed > l):
+#                self.position = self.destination
+#            else :
+#                if (self.terrain.constraint(self.position[0]-px, self.position[1]-py, self.size)):
+#                    self.position = [self.position[0]-px, self.position[1]-py]
+#                else :
+#                    self.destination = self.position
+
+
+
 #classe abstraite des différents mob,
 #pour éviter d'avoir le meme code partout
 import random

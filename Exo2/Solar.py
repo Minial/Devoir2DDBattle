@@ -5,7 +5,7 @@ from Mob import Mob
 class Solar(Mob):
 
     def __init__(self, _x, _y, _la, _le):
-        Mob.__init__(self, _x, _y, _la, _le, 30, 150, 44, 30, 330)
+        Mob.__init__(self, _x, _y, _la, _le, 30, 150, 44, 30, 330, "yellow")
         self.destination = self.position
         self.life = random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + 242
         self.lifeMax=self.life#pour éviter de soigner un mob de plus que son max

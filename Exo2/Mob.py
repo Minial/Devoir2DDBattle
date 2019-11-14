@@ -6,7 +6,8 @@ from numpy import *
 
 
 class Mob:
-    def __init__(self, _x, _y, _la, _le, _size, _speed, _ac, _rangeMelee, _rangeRanged):
+    def __init__(self, _x, _y, _la, _le, _size, _speed, _ac, _rangeMelee, _rangeRanged, _color):
+        self.color = _color
         self.size = _size#diametre du mob
         self.position = [_x, _y]
         self.speed = _speed

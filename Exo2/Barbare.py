@@ -4,7 +4,7 @@ from Mob import Mob
 class Barbare:
 
     def __init__(self, _x, _y, _la, _le):
-        Mob.__init__(self, _x, _y, _la, _le, 15, 40, 17, 30, 330)
+        Mob.__init__(self, _x, _y, _la, _le, 15, 40, 17, 30, 330, "blue")
         self.life = random.randint(1,12) + random.randint(1,12) + random.randint(1,12) + random.randint(1,12) + random.randint(1,12) + random.randint(1,12) + random.randint(1,12) + random.randint(1,12) + random.randint(1,12) + random.randint(1,12) + random.randint(1,12) + 65
         self.lifeMax=self.life
 

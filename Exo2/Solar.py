@@ -10,15 +10,16 @@ class Solar(Mob):
         self.life = random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + 242
         self.lifeMax=self.life#pour éviter de soigner un mob de plus que son max
 
-    def melee_attack(self, _ac): # Renvoie les dégats que fait le Solar
-        d20 = random.randint(1,20)
-        if (d20 == 1):
-            return 0
-        else :
-            if (d20 == 20):
-                return (2*(random.randint(1,6) + random.randint(1,6) + random.randint(1,6) + 18))
-            if (d20 + 35 > _ac):
-                return (random.randint(1,6) + random.randint(1,6) + random.randint(1,6) + 18)
+    def meleeAttack(self, _ac): # Renvoie les dégats que fait le Solar
+        return(Mob.meleeAttack(self,_ac,35, 3, 6, 18))
+#        d20 = random.randint(1,20)
+#        if (d20 == 1):
+#            return 0
+#        else :
+#            if (d20 == 20):
+#                return (2*(random.randint(1,6) + random.randint(1,6) + random.randint(1,6) + 18))
+#            if (d20 + 35 > _ac):
+#                return (random.randint(1,6) + random.randint(1,6) + random.randint(1,6) + 18)
 
     def ranged_attack(self, _ac): # Renvoie les dégats que fait le Solar
         d20 = random.randint(1,20)

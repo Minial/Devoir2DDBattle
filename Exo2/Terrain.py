@@ -59,10 +59,8 @@ class Terrain :
                     chevauchement=True;
         return listeCoord
         
-    def Tour(self):
-        
-        
-        self.listeMobs[0].life=self.listeMobs[0].life-100
+    def Tour(self):#le mob se tape lui-même
+        self.listeMobs[0].life=self.listeMobs[0].life-self.listeMobs[0].meleeAttack(18)
         self.listeMobs[0].position[0]=self.listeMobs[0].position[0]+10
         print (self.listeMobs[0].life)
         for mob in self.listeMobs:
@@ -72,3 +70,4 @@ class Terrain :
             else:
                 print("invaincu !")
     
+terr=Terrain()

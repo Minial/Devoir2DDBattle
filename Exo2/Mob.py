@@ -15,15 +15,15 @@ class Mob:
         self.rangeRanged = _rangeRanged
         
         
-    def melee_attack(self, _ac, _taco, _diceNumber, _dicePower, _bonusDegat): # Renvoie les dégats que fait le Mob
-        d20 = random.randint(1,20)
+    def meleeAttack(self, _ac, _taco, _diceNumber, _dicePower, _bonusDegat, _multiCrit=2, _critLuck=20): # Renvoie les dégats que fait le Mob
+        d20 = random.randint(1,20)#jet de toucher du mob
         if (d20 == 1):#echec critique on touche jamais
             return 0
         else :
-            degats=0
-            if (d20 == 20):#critique ! on touche a coup sur avec double de dgt
-                degats = _bonusDegat*2
-                for i in range (_diceNumber*2):
+            degats=0#les dégats renvoyé
+            if (d20 >= _critLuck):#critique ! on touche a coup sur avec double de dgt
+                degats = _bonusDegat*_multiCrit
+                for i in range (_diceNumber*_multiCrit):
                     degats=degats+random.randint(1,_dicePower)
             elif (d20 + _taco > _ac):
                 degats = _bonusDegat

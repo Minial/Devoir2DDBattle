@@ -41,7 +41,7 @@ Crawling de chacune des url trouvées, avec differenciation pour les types de mo
 (ex : Drake Lava, Drake Mist, Drake Shadow, ...)
 """
 liste_creatures = []
-for k in range(2, 3):
+for k in range(0, 15):
     URL = liste_pages_to_crawl[k]
     reponse = requests.get(URL)
     soup = BeautifulSoup(reponse.text, "html.parser")

@@ -21,8 +21,8 @@ class Terrain :
     
     def __init__(self):
         self.listeMobs = []#tout le monde !
-        self.listeGentils=[]#les gentils !
-        self.listeMéchants=[]#les vilains pas bô
+        self.listeGentils = []#les gentils !
+        self.listeMéchants = []#les vilains pas bô
         self.listeMobs.append(Solar(500,250,self.listeGentils,self.listeMéchants))
         self.listeGentils.append(self.listeMobs[0])
         print ("Prenez garde au solaire avec ses",self.listeMobs[0].life,"PV !")
@@ -45,7 +45,7 @@ class Terrain :
             print ("je suis un Warlord avec",self.listeMobs[len(self.listeMobs)-1].life)
         
     
-    
+    # 9 au premier fight
     def distance(self):#calcule la positon pour invoquer un nouvelle ennemi qui ne rentre pas dans un autre
         chevauchement=True
         while chevauchement:
@@ -56,10 +56,10 @@ class Terrain :
                 dy=mob.position[1]-listeCoord[1]
                 distance=sqrt(dx**2+dy**2)
                 if(distance<=15):
-                    chevauchement=True;
+                    chevauchement=True
         return listeCoord
         
-    def Tour(self):#le mob se tape lui-même
+    def tour(self):#le mob se tape lui-même
         self.listeMobs[0].life=self.listeMobs[0].life-self.listeMobs[0].meleeAttack(18)
         self.listeMobs[0].position[0]=self.listeMobs[0].position[0]+10
         print (self.listeMobs[0].life)

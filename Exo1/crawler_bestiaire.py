@@ -5,9 +5,11 @@ from bs4 import BeautifulSoup
 Creation de la liste des URL de toutes les creatures a crowler, sur chacun des bestiaires
 """
 
+#BASE_URL = ["http://legacy.aonprd.com/bestiary/monsterIndex.html", "http://legacy.aonprd.com/bestiary2/additionalMonsterIndex.html", "http://legacy.aonprd.com/bestiary3/monsterIndex.html", "http://legacy.aonprd.com/bestiary4/monsterIndex.html", "http://legacy.aonprd.com/bestiary5/index.html"]
+
 BASE_URL = ["http://legacy.aonprd.com/bestiary/monsterIndex.html", "http://legacy.aonprd.com/bestiary2/additionalMonsterIndex.html", "http://legacy.aonprd.com/bestiary3/monsterIndex.html", "http://legacy.aonprd.com/bestiary4/monsterIndex.html", "http://legacy.aonprd.com/bestiary5/index.html"]
 banned_link_list = ["introduction.html","monsterIndex.html","variantMonsterIndex.html","monsterCohorts.html","animalCompanions.html","monstersAsPCs.html","monsterRoles.html","encounterTables.html","monsterCreation.html","monsterAdvancement.html","universalMonsterRules.html","creatureTypes.html","monsterFeats.html"]
-banned_list = ["Statistics", "Advancement", "Aberration", "Animal", "Construct", "Rabies"]
+banned_list = ["Statistics", "Advancement", "Aberration", "Animal", "Construct", "Rabies", "Phantom Armor"]
 
 
 liste_pages_to_crawl = []
@@ -49,7 +51,7 @@ for k in range(0, len(liste_pages_to_crawl)):
     reponse = requests.get(URL)
     soup = BeautifulSoup(reponse.text, "html.parser")
     prems = True
-    creature_nom = "CECI N EST CENSE APPARAITRE NULLE PART"
+    creature_nom = "ERROR NAME"
     creature_spells = []
     for link in soup.find_all('p'):
         if(link.get('class')==['stat-block-title']):
@@ -60,16 +62,27 @@ for k in range(0, len(liste_pages_to_crawl)):
                 if(ban in strlink):
                     banned = True
                     break
-            if(not banned):    
-                if(prems):
-                    creature_nom = strlink.split("<b>")[1].split("<")[0]
-                    prems = False
+            if(not banned):
+                if("<b>" in strlink):
+                    if(prems):
+                        creature_nom = strlink.split("<b>")[1].split("<")[0].split("\t")[0]
+                        prems = False
+                    else:
+                        creature_json = {
+                            "name": creature_nom
+                        }
+                        creature_nom = strlink.split("<b>")[1].split("<")[0].split("\t")[0]
+                        liste_creatures.append(creature_json)
                 else:
-                    creature_json = {
-                        "name": creature_nom
-                    }
-                    creature_nom = strlink.split("<b>")[1].split("<")[0]
-                    liste_creatures.append(creature_json)
+                    if(prems):
+                        creature_nom = strlink.split(">")[1].split("<")[0].split("\t")[0]
+                        prems = False
+                    else:
+                        creature_json = {
+                            "name": creature_nom
+                        }
+                        creature_nom = strlink.split(">")[1].split("<")[0].split("\t")[0]
+                        liste_creatures.append(creature_json)
             
     creature_json = {
         "name": creature_nom

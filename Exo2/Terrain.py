@@ -71,3 +71,5 @@ class Terrain :
                 print("invaincu !")
     
 terr=Terrain()
+terr.listeMobs[0].observationDistanceEnnemie()
+#terr.listeMobs[0].deplacement(0)

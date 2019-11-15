@@ -27,6 +27,7 @@ class Mob:
         self.color = _color
         self.size = _size#diametre du mob
         self.position = [_x, _y]
+        self.destination = self.position
         self.speed = _speed
         self.ac = _ac
         self.listAllies = _la
@@ -79,8 +80,40 @@ class Mob:
             dx = self.position[0] - self.listEnnemie[i].position[0]
             dy = self.position[1] - self.listEnnemie[i].position[1]
             distance = sqrt(dx*dx + dy*dy)
-            self.listeDistanceEnnemie[i]=distance- self.size/2 -self.listEnnemie[i].size/2
+            self.listeDistanceEnnemie[i]=[distance- self.size/2 -self.listEnnemie[i].size/2, distance]
             j=0
-            while (j<len(self.idNearestEnnemie) and self.listeDistanceEnnemie[i]>self.listeDistanceEnnemie[self.idNearestEnnemie[j]]):
+            while (j<len(self.idNearestEnnemie) and self.listeDistanceEnnemie[i][0]>self.listeDistanceEnnemie[self.idNearestEnnemie[j]][0]):
                 j+=1
-            self.idNearestEnnemie.insert(j,i)#on 
+            self.idNearestEnnemie.insert(j,i)#on ordonne la liste des mobs par distance
+    
+    def deplacement(self, idMobVise):
+        
+        distance=self.listeDistanceEnnemie[idMobVise]
+
+        if (distance[0] <= self.rangeMelee): # Distance inférieur à l'attque melee on ne se déplace pas
+            self.destination = self.position
+            
+        elif (distance[0] <= self.speed + self.rangeMelee): # Déplacement en range melee (possibilité d'attaque)
+            x = self.position[0] + (distance[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie[idMobVise].position[0] - self.position[0]) / distance[1]
+            y = self.position[1] + (distance[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie[idMobVise].position[1] - self.position[1]) / distance[1]
+            self.destination = [x,y]
+
+        elif (distance[0] <= self.speed + self.rangeRanged): # Déplacement en range distance (possibilité d'attaque)
+            x = self.position[0] + (distance[0] + self.size/2 - self.rangeRanged)*(self.listEnnemie[idMobVise].position[0] - self.position[0]) / distance[1]
+            y = self.position[1] + (distance[0] + self.size/2 - self.rangeRanged)*(self.listEnnemie[idMobVise].position[1] - self.position[1]) / distance[1]
+            self.destination = [x,y]
+
+        elif (distance[0] <= 2*self.speed + self.rangeMelee): # Déplacement en range melee (impossible d'attaquer)
+            x = self.position[0] + (distance[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie[idMobVise].position[0] - self.position[0]) / distance[1]
+            y = self.position[1] + (distance[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie[idMobVise].position[1] - self.position[1]) / distance[1]
+            self.destination = [x,y]
+
+        elif (distance[0] <= 2*self.speed + self.rangeRanged): # Déplacement en range distance (impossible d'attaquer)
+            x = self.position[0] + (distance[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie[idMobVise].position[0] - self.position[0]) / distance[1]
+            y = self.position[1] + (distance[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie[idMobVise].position[1] - self.position[1]) / distance[1]
+            self.destination = [x,y]
+
+        else : # Déplacement max
+            x = 2*self.speed*(self.listEnnemie[idMobVise].position[0] - self.position[0])/distance[1]
+            y = 2*self.speed*(self.listEnnemie[idMobVise].position[1] - self.position[1])/distance[1]
+            self.destination = [x,y]

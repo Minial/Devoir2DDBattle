@@ -22,7 +22,7 @@ class Solar(Mob):
 #                return (random.randint(1,6) + random.randint(1,6) + random.randint(1,6) + 18)
 
     def rangedAttack(self, _ac): # Renvoie les dégats que fait le Solar
-        return(Mob.rangedAttack(self, 31, 2, 6, 14))
+        return(Mob.rangedAttack(self,_ac, 31, 2, 6, 14))
 #        d20 = random.randint(1,20)
 #        if (d20 == 1):
 #            return 0

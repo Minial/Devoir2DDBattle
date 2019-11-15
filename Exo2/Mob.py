@@ -79,3 +79,7 @@ class Mob:
             dy = self.position[1] - self.listEnnemie[i].position[1]
             distance = sqrt(dx*dx + dy*dy)
             self.listeDistanceEnnemie[i]=distance- self.size/2 -self.listEnnemie[i].size/2
+            j=0
+            while distance>self.listeDistanceEnnemie[self.idNearestEnnemie[j]]:
+                j+=1
+            self.idNearestEnnemie[j].insert(i,j)

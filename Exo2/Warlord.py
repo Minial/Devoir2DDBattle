@@ -21,7 +21,7 @@ class Warlord:
 #                return (random.randint(1,8) + 10)
 
     def rangedAttack(self, _ac):
-        return(Mob.rangedAttack(self, 19, 1, 6, 5))
+        return(Mob.rangedAttack(self,_ac, 19, 1, 6, 5))
 #        d20 = random.randint(1,20)
 #        if (d20 == 1):
 #            return 0

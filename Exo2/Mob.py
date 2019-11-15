@@ -74,12 +74,13 @@ class Mob:
         
     def observationDistanceEnnemie(self):
         self.listeDistanceEnnemie=len(self.listEnnemie)*[0]#permet de garder en mémoire la distance de tout les ennemies
+        self.idNearestEnnemie = []
         for i in range(len(self.listEnnemie)): # Calcul des distance avec les ennemies
             dx = self.position[0] - self.listEnnemie[i].position[0]
             dy = self.position[1] - self.listEnnemie[i].position[1]
             distance = sqrt(dx*dx + dy*dy)
             self.listeDistanceEnnemie[i]=distance- self.size/2 -self.listEnnemie[i].size/2
             j=0
-            while distance>self.listeDistanceEnnemie[self.idNearestEnnemie[j]]:
+            while (j<len(self.idNearestEnnemie) and self.listeDistanceEnnemie[i]>self.listeDistanceEnnemie[self.idNearestEnnemie[j]]):
                 j+=1
-            self.idNearestEnnemie[j].insert(i,j)
+            self.idNearestEnnemie.insert(j,i)#on 

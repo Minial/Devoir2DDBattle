@@ -20,7 +20,7 @@ class Barbare:
 #                return (3*(random.randint(1,8) + 10))#ça c'est bugué
 
     def rangedAttack(self, _ac):
-        return(Mob.rangedAttack(self, 19, 1, 8, 6, 3))
+        return(Mob.rangedAttack(self,_ac, 19, 1, 8, 6, 3))
 #        d20 = random.randint(1,20)
 #        if (d20 == 1):
 #            return 0

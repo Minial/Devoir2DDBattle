@@ -20,7 +20,7 @@ class WorgRider(Mob):
 #                return (random.randint(1,8) + 2)
 
     def rangedAttack(self, _ac):
-        return(Mob.rangedAttack(self, 4, 1, 6, 0, 3))
+        return(Mob.rangedAttack(self, _ac, 4, 1, 6, 0, 3))
 #        d20 = random.randint(1,20)
 #        if (d20 == 1):
 #            return 0

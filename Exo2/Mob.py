@@ -36,6 +36,9 @@ class Mob:
         self.rangeRanged = _rangeRanged
         self.listeDistanceEnnemie = []#stock les distances des différents ennemies
         self.idNearestEnnemie = []
+        self.tourMob=False#le mob est en train de faire son tour
+        self.canMeleeAttack=False#le mob peut taper melee
+        self.canRangedAttack=False#le mob peut taper ranged
         #stocke par ordre croisant de distance les id des différents ennemis
         
         
@@ -92,16 +95,22 @@ class Mob:
 
         if (distance[0] <= self.rangeMelee): # Distance inférieur à l'attque melee on ne se déplace pas
             self.destination = self.position
+            self.canMeleeAttack=True
+            self.canRangedAttack=True
             
         elif (distance[0] <= self.speed + self.rangeMelee): # Déplacement en range melee (possibilité d'attaque)
             x = self.position[0] + (distance[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie[idMobVise].position[0] - self.position[0]) / distance[1]
             y = self.position[1] + (distance[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie[idMobVise].position[1] - self.position[1]) / distance[1]
             self.destination = [x,y]
+            self.canMeleeAttack=True
+            self.canRangedAttack=True
 
         elif (distance[0] <= self.speed + self.rangeRanged): # Déplacement en range distance (possibilité d'attaque)
             x = self.position[0] + (distance[0] + self.size/2 - self.rangeRanged)*(self.listEnnemie[idMobVise].position[0] - self.position[0]) / distance[1]
             y = self.position[1] + (distance[0] + self.size/2 - self.rangeRanged)*(self.listEnnemie[idMobVise].position[1] - self.position[1]) / distance[1]
             self.destination = [x,y]
+            self.canMeleeAttack=False
+            self.canRangedAttack=True
 
         elif (distance[0] <= 2*self.speed + self.rangeMelee): # Déplacement en range melee (impossible d'attaquer)
             x = self.position[0] + (distance[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie[idMobVise].position[0] - self.position[0]) / distance[1]

@@ -40,6 +40,7 @@ class Mob:
         self.canMeleeAttack=False#le mob peut taper melee
         self.canRangedAttack=False#le mob peut taper ranged
         #stocke par ordre croisant de distance les id des différents ennemis
+        self.name=self.__class__.__name__#peut servir ou pas
         
         
     def meleeAttack(self, _ac, _taco, _diceNumber, _dicePower, _bonusDegat, _multiCrit=2, _critLuck=20): # Renvoie les dégats que fait le Mob
@@ -91,7 +92,8 @@ class Mob:
     
     def deplacement(self, idMobVise):
         
-        distance=self.listeDistanceEnnemie[idMobVise]
+        distance=self.listeDistanceEnnemie[idMobVise]#indique la distance du mob visé
+        #en 0 c'est celle entre les bords des mobs et en 1 entre leur centre
 
         if (distance[0] <= self.rangeMelee): # Distance inférieur à l'attque melee on ne se déplace pas
             self.destination = self.position

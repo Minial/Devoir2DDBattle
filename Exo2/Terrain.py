@@ -72,4 +72,4 @@ class Terrain :
     
 terr=Terrain()
 terr.listeMobs[0].observationDistanceEnnemie()
-#terr.listeMobs[0].deplacement(0)
+terr.listeMobs[0].deplacement(0)

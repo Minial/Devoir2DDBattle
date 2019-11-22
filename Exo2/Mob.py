@@ -128,8 +128,7 @@ class Mob:
             x = 2*self.speed*(self.listEnnemie[idMobVise].position[0] - self.position[0])/distance[1]
             y = 2*self.speed*(self.listEnnemie[idMobVise].position[1] - self.position[1])/distance[1]
             self.destination = [x,y]
-<<<<<<< HEAD
-=======
+
 
     def deltaAction(self):
         if (self.position != self.destination):
@@ -149,4 +148,4 @@ class Mob:
             elif (self.attackRange):
                 self.listEnnemie[id].life = self.listEnnemie[id].life - rangedAttack(self.listEnnemie[id].ac)
             self.tourMob = False
->>>>>>> master
+

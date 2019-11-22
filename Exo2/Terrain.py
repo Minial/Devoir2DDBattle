@@ -58,7 +58,7 @@ class Terrain :
     def distance(self, size):#calcule la positon pour invoquer un nouvelle ennemi qui ne rentre pas dans un autre
         chevauchement=True
         while chevauchement:
-            listeCoord=[500+randint(-250,250),750+randint(-100,100)]
+            listeCoord=[500+randint(-250,250),250+randint(-100,100)]
             chevauchement=False
             for mob in self.listeMobs:
                 dx=mob.position[0]-listeCoord[0]

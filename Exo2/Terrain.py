@@ -24,7 +24,7 @@ class Terrain :
         self.listeMobs = []#tout le monde !
         self.listeGentils = []#les gentils !
         self.listeMéchants = []#les vilains pas bô
-        self.listeMobs.append(Solar(500,250,self.listeGentils,self.listeMéchants))
+        self.listeMobs.append(Solar(500,750,self.listeGentils,self.listeMéchants))
         self.listeGentils.append(self.listeMobs[0])
         print ("Prenez garde au solaire avec ses",self.listeMobs[0].life,"PV !")
         self.summonWorgRider(9)
@@ -83,10 +83,8 @@ class Terrain :
         for i in range(len(self.listeMobs)):
             self.listeMobs[i].tourMob = True
         self.tourvar = True
-        self.listeMobs[0].observationDistanceEnnemie()
-        print(self.listeMobs[0].destination)
         self.listeMobs[0].deplacement(9)
-        print(self.listeMobs[0].destination)
+        self.listeMobs[10].deplacement(0)
 
 
     def action(self):

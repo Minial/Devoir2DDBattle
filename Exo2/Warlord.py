@@ -1,7 +1,7 @@
 import random
 from Mob import Mob
 
-class Warlord:
+class Warlord(Mob):
 
     def __init__(self, _x, _y, _la, _le):
         Mob.__init__(self, _x, _y, _la, _le, 15, 30, 27, 30, 330, "red")

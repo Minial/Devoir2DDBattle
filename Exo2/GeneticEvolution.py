@@ -12,3 +12,16 @@
 #a la fin on sélectionne de chaque type de mob le reseau de neurone avec le meilleure code
 #on fait des mutations aleatoire
 #on recommence avec reseau muté !
+
+from Terrain import Terrain
+
+class GeneticEvolution:
+    
+    def __init__(self):
+        self.sizePopulation=20#nombre instance en //
+        self.network=[10,10,10,10]
+        #profondeur (len) et hauteur du r�seau(10) excluant entre et sortie
+        
+    def
+    
+    

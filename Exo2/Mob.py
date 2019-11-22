@@ -96,45 +96,52 @@ class Mob:
         distance=self.listeDistanceEnnemie[idMobVise]#indique la distance du mob visé
         #en 0 c'est celle entre les bords des mobs et en 1 entre leur centre
 
+        Xtotal = self.listEnnemie[idMobVise].position[0]- self.position[0]# selon thales c'est le X total
+        Ytotal = self.listEnnemie[idMobVise].position[1]- self.position[1]
+        l=distance[1]
+        dep=distance[0]#pensez a soustraire distance attack
         if (distance[0] <= self.rangeMelee): # Distance inférieur à l'attque melee on ne se déplace pas
             print("1")
             self.destination = self.position
             self.canMeleeAttack=True
             self.canRangedAttack=True
+            print("le",self.name,"peut taper au cac sans deplacement")
             
         elif (distance[0] <= self.speed + self.rangeMelee): # Déplacement en range melee (possibilité d'attaque)
-            print("2")
-            x = self.position[0] + (distance[0] - self.rangeMelee)*(self.listEnnemie[idMobVise].position[0] - self.position[0]) / distance[1]
-            y = self.position[1] + (distance[0] - self.rangeMelee)*(self.listEnnemie[idMobVise].position[1] - self.position[1]) / distance[1]
+            
+            x = self.position[0] + (dep - self.rangeMelee)*Xtotal / l
+            y = self.position[1] + (dep - self.rangeMelee)*Ytotal / l
             self.destination = [x,y]
             self.canMeleeAttack=True
             self.canRangedAttack=True
+            print("le",self.name,"peut taper cac avec deplacement")
 
         elif (distance[0] <= self.speed + self.rangeRanged): # Déplacement en range distance (possibilité d'attaque)
-            print("3")
-            x = self.position[0] + (distance[0] - self.rangeRanged)*(self.listEnnemie[idMobVise].position[0] - self.position[0]) / distance[1]
-            y = self.position[1] + (distance[0] - self.rangeRanged)*(self.listEnnemie[idMobVise].position[1] - self.position[1]) / distance[1]
+            x = self.position[0] + (dep - self.rangeRanged)*Xtotal / l
+            y = self.position[1] + (dep - self.rangeRanged)*Ytotal / l
             self.destination = [x,y]
             self.canMeleeAttack=False
             self.canRangedAttack=True
+            print("le",self.name,"peut taper distance avec deplacement")
 
         elif (distance[0] <= 2*self.speed + self.rangeMelee): # Déplacement en range melee (impossible d'attaquer)
-            print("4")
-            x = self.position[0] + (distance[0] - self.rangeMelee)*(self.listEnnemie[idMobVise].position[0] - self.position[0]) / distance[1]
-            y = self.position[1] + (distance[0] - self.rangeMelee)*(self.listEnnemie[idMobVise].position[1] - self.position[1]) / distance[1]
+            x = self.position[0] + (dep - self.rangeMelee)*Xtotal / l
+            y = self.position[1] + (dep - self.rangeMelee)*Ytotal / l
             self.destination = [x,y]
+            print("le",self.name,"peut pas taper cac avec deplacement")
 
         elif (distance[0] <= 2*self.speed + self.rangeRanged): # Déplacement en range distance (impossible d'attaquer)
-            print("5")
-            x = self.position[0] + (distance[0] - self.rangeRanged)*(self.listEnnemie[idMobVise].position[0] - self.position[0]) / distance[1]
-            y = self.position[1] + (distance[0] - self.rangeRanged)*(self.listEnnemie[idMobVise].position[1] - self.position[1]) / distance[1]
+            x = self.position[0] + (dep - self.rangeRanged)*Xtotal / l
+            y = self.position[1] + (dep - self.rangeRanged)*Ytotal / l
             self.destination = [x,y]
+            print("le",self.name,"peut pas taper distance avec deplacement")
 
         else : # Déplacement max
             print("6")
             x = 2*self.speed*(self.listEnnemie[idMobVise].position[0] - self.position[0])/distance[1]
             y = 2*self.speed*(self.listEnnemie[idMobVise].position[1] - self.position[1])/distance[1]
             self.destination = [x,y]
+            print("le",self.name,"peut pas taper avec deplacement")
 
 
     def deltaAction(self):

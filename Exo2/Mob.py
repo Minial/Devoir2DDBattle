@@ -19,7 +19,7 @@
 #pour éviter d'avoir le meme code partout
 import random
 from random import *
-from numpy import *
+import numpy as np
 
 
 class Mob:
@@ -36,7 +36,11 @@ class Mob:
         self.rangeRanged = _rangeRanged
         self.listeDistanceEnnemie = []#stock les distances des différents ennemies
         self.idNearestEnnemie = []
+        self.tourMob=False#le mob est en train de faire son tour
+        self.canMeleeAttack=False#le mob peut taper melee
+        self.canRangedAttack=False#le mob peut taper ranged
         #stocke par ordre croisant de distance les id des différents ennemis
+        self.name=self.__class__.__name__#peut servir ou pas
         
         
     def meleeAttack(self, _ac, _taco, _diceNumber, _dicePower, _bonusDegat, _multiCrit=2, _critLuck=20): # Renvoie les dégats que fait le Mob
@@ -79,7 +83,7 @@ class Mob:
         for i in range(len(self.listEnnemie)): # Calcul des distance avec les ennemies
             dx = self.position[0] - self.listEnnemie[i].position[0]
             dy = self.position[1] - self.listEnnemie[i].position[1]
-            distance = sqrt(dx*dx + dy*dy)
+            distance = np.sqrt(dx*dx + dy*dy)
             self.listeDistanceEnnemie[i]=[distance- self.size/2 -self.listEnnemie[i].size/2, distance]
             j=0
             while (j<len(self.idNearestEnnemie) and self.listeDistanceEnnemie[i][0]>self.listeDistanceEnnemie[self.idNearestEnnemie[j]][0]):
@@ -88,20 +92,27 @@ class Mob:
     
     def deplacement(self, idMobVise):
         
-        distance=self.listeDistanceEnnemie[idMobVise]
+        distance=self.listeDistanceEnnemie[idMobVise]#indique la distance du mob visé
+        #en 0 c'est celle entre les bords des mobs et en 1 entre leur centre
 
         if (distance[0] <= self.rangeMelee): # Distance inférieur à l'attque melee on ne se déplace pas
             self.destination = self.position
+            self.canMeleeAttack=True
+            self.canRangedAttack=True
             
         elif (distance[0] <= self.speed + self.rangeMelee): # Déplacement en range melee (possibilité d'attaque)
             x = self.position[0] + (distance[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie[idMobVise].position[0] - self.position[0]) / distance[1]
             y = self.position[1] + (distance[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie[idMobVise].position[1] - self.position[1]) / distance[1]
             self.destination = [x,y]
+            self.canMeleeAttack=True
+            self.canRangedAttack=True
 
         elif (distance[0] <= self.speed + self.rangeRanged): # Déplacement en range distance (possibilité d'attaque)
             x = self.position[0] + (distance[0] + self.size/2 - self.rangeRanged)*(self.listEnnemie[idMobVise].position[0] - self.position[0]) / distance[1]
             y = self.position[1] + (distance[0] + self.size/2 - self.rangeRanged)*(self.listEnnemie[idMobVise].position[1] - self.position[1]) / distance[1]
             self.destination = [x,y]
+            self.canMeleeAttack=False
+            self.canRangedAttack=True
 
         elif (distance[0] <= 2*self.speed + self.rangeMelee): # Déplacement en range melee (impossible d'attaquer)
             x = self.position[0] + (distance[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie[idMobVise].position[0] - self.position[0]) / distance[1]
@@ -117,3 +128,23 @@ class Mob:
             x = 2*self.speed*(self.listEnnemie[idMobVise].position[0] - self.position[0])/distance[1]
             y = 2*self.speed*(self.listEnnemie[idMobVise].position[1] - self.position[1])/distance[1]
             self.destination = [x,y]
+
+
+    def deltaAction(self):
+        if (self.position != self.destination):
+            dx = self.position[0] - self.destination[0]
+            dy = self.position[1] - self.destination[1]
+            l = np.sqrt(dx*dx + dy*dy)
+            px = dx*self.speed/20 / l
+            py = dy*self.speed/20 / l
+            if (self.speed/20 > l):
+                self.position = self.destination
+            else :
+                self.position = [self.position[0]-px, self.position[1]-py]
+
+        #else:
+        #    if (self.canMeleeAttack):
+        #        self.listEnnemie[id].life = self.listEnnemie[id].life - meleeAttack(self.listEnnemie[id].ac)
+        #    elif (self.canRangedAttack):
+        #        self.listEnnemie[id].life = self.listEnnemie[id].life - rangedAttack(self.listEnnemie[id].ac)
+        #    self.tourMob = False

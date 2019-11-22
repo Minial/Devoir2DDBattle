@@ -129,6 +129,7 @@ class Mob:
             y = 2*self.speed*(self.listEnnemie[idMobVise].position[1] - self.position[1])/distance[1]
             self.destination = [x,y]
 
+
     def deltaAction(self):
         if (self.position != self.destination):
             dx = self.position[0] - self.destination[0]

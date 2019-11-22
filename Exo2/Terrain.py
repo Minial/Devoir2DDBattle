@@ -29,25 +29,33 @@ class Terrain :
         print ("Prenez garde au solaire avec ses",self.listeMobs[0].life,"PV !")
         self.summonWorgRider(9)
         self.summonWarLord(1)
+        self.summonBarbare(4)
     
     
     def summonWorgRider(self,number):#on invoque un nombre number de WorgRider
         for i in range(number):
-            listeCoord=self.distance()
+            listeCoord=self.distance(15)
             self.listeMobs.append(WorgRider(listeCoord[0],listeCoord[1],self.listeMéchants,self.listeGentils))
             self.listeMéchants.append(self.listeMobs[len(self.listeMobs)-1])#on ajoute mob dans liste méchant
             print ("je suis un WorgRider avec",self.listeMobs[len(self.listeMobs)-1].life)
             
     def summonWarLord(self,number):#on invoque un nombre number de warlord
         for i in range(number):
-            listeCoord=self.distance()
+            listeCoord=self.distance(15)
             self.listeMobs.append(Warlord(listeCoord[0],listeCoord[1],self.listeMéchants,self.listeGentils))
             self.listeMéchants.append(self.listeMobs[len(self.listeMobs)-1])#on ajoute mob dans liste méchant
             print ("je suis un Warlord avec",self.listeMobs[len(self.listeMobs)-1].life)
+    
+    def summonBarbare(self,number):#on invoque un nombre number de warlord
+        for i in range(number):
+            listeCoord=self.distance(15)
+            self.listeMobs.append(Barbare(listeCoord[0],listeCoord[1],self.listeMéchants,self.listeGentils))
+            self.listeMéchants.append(self.listeMobs[len(self.listeMobs)-1])#on ajoute mob dans liste méchant
+            print ("je suis un Barbare avec",self.listeMobs[len(self.listeMobs)-1].life)
         
     
     # 9 au premier fight
-    def distance(self):#calcule la positon pour invoquer un nouvelle ennemi qui ne rentre pas dans un autre
+    def distance(self, size):#calcule la positon pour invoquer un nouvelle ennemi qui ne rentre pas dans un autre
         chevauchement=True
         while chevauchement:
             listeCoord=[500+randint(-250,250),750+randint(-100,100)]
@@ -56,7 +64,7 @@ class Terrain :
                 dx=mob.position[0]-listeCoord[0]
                 dy=mob.position[1]-listeCoord[1]
                 distance=sqrt(dx**2+dy**2)
-                if(distance<=15):
+                if(distance<=mob.size+size):#le size du nouveau mob
                     chevauchement=True
         return listeCoord
         

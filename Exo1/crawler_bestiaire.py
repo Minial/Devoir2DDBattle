@@ -1,5 +1,22 @@
-import requests, json, re, pymongo, sys, sqlite3
+import requests, json, re, pymongo, sys
 from bs4 import BeautifulSoup
+from bson import ObjectId
+
+
+"""
+Ouverture de la base MongoDB, et clean de l'ancienne
+"""
+
+client = pymongo.MongoClient("mongodb://localhost:27017/")
+db = client["DD_Creatures"]
+col = db["Creatures"]
+
+try:#mongoDB
+    x = col.delete_many({})
+    print(x.deleted_count, " documents deleted.")
+except:
+    sys.exit("service MongoDB non trouvé, veuillez le démarrer")
+
 
 
 """
@@ -12,9 +29,6 @@ BASE_URL = ["http://legacy.aonprd.com/bestiary/monsterIndex.html", "http://legac
 banned_link_list = ["introduction.html","monsterIndex.html","variantMonsterIndex.html","monsterCohorts.html","animalCompanions.html","monstersAsPCs.html","monsterRoles.html","encounterTables.html","monsterCreation.html","monsterAdvancement.html","universalMonsterRules.html","creatureTypes.html","monsterFeats.html"]
 banned_list = ["Statistics", "Advancement", "Aberration", "Animal", "Construct", "Rabies", "Phantom Armor"]
 
-client = pymongo.MongoClient("mongodb://localhost:27017/")
-db = client["DD_Creatures"]
-col = db["Creatures"]
 
 liste_pages_to_crawl = []
 
@@ -48,6 +62,7 @@ for k in range(0, len(liste_pages_to_crawl)):
 Crawling de chacune des url trouvées, avec differenciation pour les types de monstres 
 (ex : Drake Lava, Drake Mist, Drake Shadow, ...)
 """
+
 all_base = []
 #for k in range(0, len(liste_pages_to_crawl)):
 #Modifier ici pour faire des tests sur moins de creatures
@@ -77,17 +92,20 @@ for k in range(0, len(liste_pages_to_crawl)):
                     if(prems):
                         creature_nom = strlink.split("<b>")[1].split("<")[0].split("\t")[0]
                         prems = False
+                        creature_spells = []
                     else:
                         creature_json = {
                             "name": creature_nom,
                             "spells": creature_spells
                         }
                         creature_nom = strlink.split("<b>")[1].split("<")[0].split("\t")[0]
+                        creature_spells = []
                         all_base.append(creature_json)
                         col.insert_one(creature_json)
                 else:
                     if(prems):
                         creature_nom = strlink.split(">")[1].split("<")[0].split("\t")[0]
+                        creature_spells = []
                         prems = False
                     else:
                         creature_json = {
@@ -95,6 +113,7 @@ for k in range(0, len(liste_pages_to_crawl)):
                             "spells": creature_spells
                         }
                         creature_nom = strlink.split(">")[1].split("<")[0].split("\t")[0]
+                        creature_spells = []
                         all_base.append(creature_json)
                         col.insert_one(creature_json)
                         
@@ -115,6 +134,17 @@ for k in range(0, len(liste_pages_to_crawl)):
     all_base.append(creature_json)
     col.insert_one(creature_json)
     
+    
+class JSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return json.JSONEncoder.default(self, o)
+
+json_creatures = JSONEncoder().encode(all_base)
+    
+with open('creatures.json', 'w', encoding='utf-8') as f:
+    json.dump(json_creatures, f, ensure_ascii=False, indent=4)
+    
 client.close()
 print(all_base)
-

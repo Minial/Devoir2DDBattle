@@ -28,6 +28,7 @@ class Terrain :
         print ("Prenez garde au solaire avec ses",self.listeMobs[0].life,"PV !")
         self.summonWorgRider(9)
         self.summonWarLord(1)
+        self.summonBarbare(4)
     
     
     def summonWorgRider(self,number):#on invoque un nombre number de WorgRider
@@ -43,6 +44,13 @@ class Terrain :
             self.listeMobs.append(Warlord(listeCoord[0],listeCoord[1],self.listeMéchants,self.listeGentils))
             self.listeMéchants.append(self.listeMobs[len(self.listeMobs)-1])#on ajoute mob dans liste méchant
             print ("je suis un Warlord avec",self.listeMobs[len(self.listeMobs)-1].life)
+    
+    def summonBarbare(self,number):#on invoque un nombre number de warlord
+        for i in range(number):
+            listeCoord=self.distance(15)
+            self.listeMobs.append(Barbare(listeCoord[0],listeCoord[1],self.listeMéchants,self.listeGentils))
+            self.listeMéchants.append(self.listeMobs[len(self.listeMobs)-1])#on ajoute mob dans liste méchant
+            print ("je suis un Barbare avec",self.listeMobs[len(self.listeMobs)-1].life)
         
     
     # 9 au premier fight

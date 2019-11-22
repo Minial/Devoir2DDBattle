@@ -20,6 +20,7 @@ class Terrain :
     #id = -1 #sert pour l'identification d'un mob
     
     def __init__(self):
+        self.tourvar = False
         self.listeMobs = []#tout le monde !
         self.listeGentils = []#les gentils !
         self.listeMéchants = []#les vilains pas bô
@@ -70,14 +71,26 @@ class Terrain :
             else:
                 print("invaincu !")
 
+    def tour2(self):
+        for i in range(len(self.listeMobs)):
+            self.listeMobs[i].tourMob = True
+        self.tourvar = True
+        self.listeMobs[0].observationDistanceEnnemie()
+        print(self.listeMobs[0].destination)
+        self.listeMobs[0].deplacement(9)
+        print(self.listeMobs[0].destination)
+
+
     def action(self):
-        if (self.tour):
+        if (self.tourvar):
             i=0
-            if (i<len(self.listeMobs)):
-                while(not(self.listeMobs[i].tourMob)):
+            while(i<len(self.listeMobs)):
+                if (not(self.listeMobs[i].tourMob)):
                     i=i+1
-                self.liseMob[i].deltaAction()
-        self.tour = False
+                else :
+                    self.listeMobs[i].deltaAction()
+                    return 0
+        self.tourvar = False
     
 terr=Terrain()
 terr.listeMobs[0].observationDistanceEnnemie()

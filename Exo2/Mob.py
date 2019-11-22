@@ -19,7 +19,7 @@
 #pour éviter d'avoir le meme code partout
 import random
 from random import *
-from numpy import *
+import numpy as np
 
 
 class Mob:
@@ -83,7 +83,7 @@ class Mob:
         for i in range(len(self.listEnnemie)): # Calcul des distance avec les ennemies
             dx = self.position[0] - self.listEnnemie[i].position[0]
             dy = self.position[1] - self.listEnnemie[i].position[1]
-            distance = sqrt(dx*dx + dy*dy)
+            distance = np.sqrt(dx*dx + dy*dy)
             self.listeDistanceEnnemie[i]=[distance- self.size/2 -self.listEnnemie[i].size/2, distance]
             j=0
             while (j<len(self.idNearestEnnemie) and self.listeDistanceEnnemie[i][0]>self.listeDistanceEnnemie[self.idNearestEnnemie[j]][0]):
@@ -134,16 +134,16 @@ class Mob:
             dx = self.position[0] - self.destination[0]
             dy = self.position[1] - self.destination[1]
             l = np.sqrt(dx*dx + dy*dy)
-            px = dx*self.speed / l
-            py = dy*self.speed / l
-            if (self.speed/100 > l):
+            px = dx*self.speed/20 / l
+            py = dy*self.speed/20 / l
+            if (self.speed/20 > l):
                 self.position = self.destination
             else :
                 self.position = [self.position[0]-px, self.position[1]-py]
 
-        else:
-            if (self.attackMelee):
-                self.listEnnemie[id].life = self.listEnnemie[id].life - meleeAttack(self.listEnnemie[id].ac)
-            elif (self.attackRange):
-                self.listEnnemie[id].life = self.listEnnemie[id].life - rangedAttack(self.listEnnemie[id].ac)
-            self.tourMob = False
+        #else:
+        #    if (self.canMeleeAttack):
+        #        self.listEnnemie[id].life = self.listEnnemie[id].life - meleeAttack(self.listEnnemie[id].ac)
+        #    elif (self.canRangedAttack):
+        #        self.listEnnemie[id].life = self.listEnnemie[id].life - rangedAttack(self.listEnnemie[id].ac)
+        #    self.tourMob = False

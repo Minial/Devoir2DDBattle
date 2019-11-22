@@ -11,7 +11,7 @@ from Terrain import Terrain
 # ###
 # Constante
 terrain = Terrain()
-time=10
+time=50
 w=terrain.tailleX
 h=terrain.tailleY
 
@@ -25,11 +25,11 @@ def affiche_fenetre():
 
     fenetre.resizable(False,False)
 
-    #fenetre.after(time, affichage)
+    fenetre.after(time, affichage)
     
     canvas = Canvas(fenetre, width=w, height=h, background='white')
     canvas.pack(side=LEFT)
-    bouttonTour = Button(fenetre, text ='Tour', command=terrain.tour)
+    bouttonTour = Button(fenetre, text ='Tour', command=terrain.tour2)
     bouttonTour.pack(side=RIGHT, padx=10, pady=10)
 
     affiche_jeu()
@@ -40,7 +40,6 @@ def affiche_fenetre():
 def affiche_jeu():
     global terrain
     canvas.delete(ALL)
-    print(len(terrain.listeMobs))
     for i in range(len(terrain.listeMobs)):
         canvas.create_oval(np.round(terrain.listeMobs[i].position[0] - terrain.listeMobs[i].size), np.round(terrain.listeMobs[i].position[1] - terrain.listeMobs[i].size), np.round(terrain.listeMobs[i].position[0] + terrain.listeMobs[i].size), np.round(terrain.listeMobs[i].position[1] + terrain.listeMobs[i].size), fill=terrain.listeMobs[i].color)
 

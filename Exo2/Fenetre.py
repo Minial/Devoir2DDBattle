@@ -44,15 +44,16 @@ def affiche_jeu():
     for i in range(len(terrain.listeMobs)):
         canvas.create_oval(np.round(terrain.listeMobs[i].position[0] - terrain.listeMobs[i].size), np.round(terrain.listeMobs[i].position[1] - terrain.listeMobs[i].size), np.round(terrain.listeMobs[i].position[0] + terrain.listeMobs[i].size), np.round(terrain.listeMobs[i].position[1] + terrain.listeMobs[i].size), fill=terrain.listeMobs[i].color)
 
-#def etatProchain():
+def etatProchain():
+    terrain.action()
 
 
 # ###
 # Boucle d'affichage du jeu
-#def affichage():
-    #etatProchain()
-    #affiche_jeu()
-    #fenetre.after(time,affichage)
+def affichage():
+    etatProchain()
+    affiche_jeu()
+    fenetre.after(time,affichage)
 
 # ###
 # Début

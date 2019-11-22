@@ -69,6 +69,15 @@ class Terrain :
                 del self.listeMobs[self.listeMobs.index(mob)]
             else:
                 print("invaincu !")
+
+    def action(self):
+        if (self.tour):
+            i=0
+            if (i<len(self.listeMobs)):
+                while(not(self.listeMobs[i].tourMob)):
+                    i=i+1
+                self.liseMob[i].deltaAction()
+        self.tour = False
     
 terr=Terrain()
 terr.listeMobs[0].observationDistanceEnnemie()

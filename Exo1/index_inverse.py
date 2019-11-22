@@ -21,5 +21,9 @@ def index_inverse(sort):
           res.append(x.get("name"))
     return(res)
       
-print(index_inverse("haste"))
+print(index_inverse("inflictSeriousWounds"))
 
+# IMPORTANT
+# Les noms des sorts commencent par des minuscules
+# Un sort avec un espace est traduit comme l'exemple suivant
+# Sort : Inflict serious wounds >> Nom officiel : inflictSeriousWounds

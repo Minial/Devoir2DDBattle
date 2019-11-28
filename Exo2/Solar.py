@@ -6,7 +6,12 @@ class Solar(Mob):
 
     def __init__(self, _x, _y, _la, _le):
         Mob.__init__(self, _x, _y, _la, _le, 30, 150, 44, 30, 330, "yellow")
-        self.life = random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + 242
+        self.life = random.randint(1,10) + random.randint(1,10) + random.randint(1,10)
+        + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10)
+        + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10)
+        + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10)
+        + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10)
+        + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + 242
         self.lifeMax=self.life#pour éviter de soigner un mob de plus que son max
 
     def meleeAttack(self, _ac): # Renvoie les dégats que fait le Solar
@@ -68,3 +73,62 @@ class Solar(Mob):
             x = 2*self.speed*(self.listEnnemie(listeDistance.index(minDist)).position[0] - self.position[0])/minDist[1]
             y = 2*self.speed*(self.listEnnemie(listeDistance.index(minDist)).position[1] - self.position[1])/minDist[1]
             destination = [x,y]
+    
+    def IADecision(self, rayon, angle, action, cible1, cible2, cible3, cible4):
+        #chaque param est entre 0 et 1 et sera remis dans l'intervarlle utile plus loin
+        #l'ia vas donner pour se deplacer une position angulaire (entre 0 et 1 pour chaque, a transposer ensuite)
+        #elle vas aussi donner l'action, entre 0 et 1, avec entre >1/3 deplacement doublé
+        #1/3<x<2/3 attaque melee et >2/3 attaque ranged (possibilité ajout action)
+        #cibleX est la cible pour l'attaque numero X du monstre s'il attaque
+        #4 cible, car il peut taper 4 mob max
+        self.observationDistanceEnnemie()#permet d'avoir en memoire distance des mobs (ou actualiser)
+        nombreAction=3#permet de donner le nombre d'action différente possible par le mob
+        mouvX=rayon*self.speed*np.cos(angle*360)#deplacement selon X
+        mouvY=rayon*self.speed*np.sin(angle*360)#deplacement selon Y
+        if action<1/nombreAction :#cas deplacement double distance
+            mouvX=mouvX*2
+            mouvY=mouvY*2
+            
+            return "Deplacement"
+        elif action<2/nombreAction:#attaque melee
+            degat=[]#chaque case contient 2 case, l'id de la cible, et les dégats qu'il prend
+            cible=round(cible1*len(self.listEnnemie))
+            if self.listeDistanceEnnemie[cible]<=self.rangeMelee :#on vérifie si on peut taper le mob
+                degat.append[cible, self.meleeAttack(self.listEnnemie[cible].ac)]
+            cible=round(cible2*len(self.listEnnemie))
+            if self.listeDistanceEnnemie[cible]<=self.rangeMelee :#on vérifie si on peut taper le mob
+                degat.append[cible, self.meleeAttack(self.listEnnemie[cible].ac)]
+            cible=round(cible3*len(self.listEnnemie))
+            if self.listeDistanceEnnemie[cible]<=self.rangeMelee :#on vérifie si on peut taper le mob
+                degat.append[cible, self.meleeAttack(self.listEnnemie[cible].ac)]
+            cible=round(cible4*len(self.listEnnemie))
+            if self.listeDistanceEnnemie[cible]<=self.rangeMelee :#on vérifie si on peut taper le mob
+                degat.append[cible, self.meleeAttack(self.listEnnemie[cible].ac)]
+            #c'est moche mais plus simple qu'un for dans ce cas
+            return degat
+        elif action<3/nombreAction:#attaque ranged
+            degat=[]#chaque case contient 2 case, l'id de la cible, et les dégats qu'il prend
+            cible=round(cible1*len(self.listEnnemie))
+            if self.listeDistanceEnnemie[cible]<=self.rangeRanged :#on vérifie si on peut taper le mob
+                degat.append[cible, self.rangedAttack(self.listEnnemie[cible].ac)]
+            cible=round(cible2*len(self.listEnnemie))
+            if self.listeDistanceEnnemie[cible]<=self.rangeRanged :#on vérifie si on peut taper le mob
+                degat.append[cible, self.rangedAttack(self.listEnnemie[cible].ac)]
+            cible=round(cible3*len(self.listEnnemie))
+            if self.listeDistanceEnnemie[cible]<=self.rangeRanged :#on vérifie si on peut taper le mob
+                degat.append[cible, self.rangedAttack(self.listEnnemie[cible].ac)]
+            cible=round(cible4*len(self.listEnnemie))
+            if self.listeDistanceEnnemie[cible]<=self.rangeRanged :#on vérifie si on peut taper le mob
+                degat.append[cible, self.rangedAttack(self.listEnnemie[cible].ac)]
+            #c'est moche mais plus simple qu'un for dans ce cas
+            return degat
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            

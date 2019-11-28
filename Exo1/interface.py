@@ -26,7 +26,6 @@ from index_inverse import index_inverse
 
 liste_sorts = get_all_spells()
 liste_sorts.sort()
-#sort = "acidArrow"
 
 
 def clic(evt):
@@ -40,7 +39,6 @@ def clic(evt):
     return sort
     
 
-    
 
 
 #MAIN
@@ -60,7 +58,6 @@ Label(Titre, text="Recherche créatures et sorts", bg="#ffffff", font=("Helvetic
 
 Label(fen1, text= "Nom du sort :").pack()
 
-sort = "acidArrow"
 
 #Premiere liste comportant les sorts
 li = tk.Listbox(fen1)
@@ -73,27 +70,15 @@ li.bind('<ButtonRelease-1>',clic)
 
 
 Label(fen1, text= " ", font=("Helvetica", 12)).pack()
-Label(fen1, text= "Nom des créatures ayant ce sort :").pack()
+Label(fen1, text= "Noms des créatures ayant ce sort :").pack()
 
 #Liste comportant les créatures
 lc = tk.Listbox(fen1)
-"""liste_creatures = index_inverse(sort)
-liste_creatures.sort()
-for j in range(0,len(liste_creatures)):
-    lc.insert("end",liste_creatures[j])"""
 lc.pack()
-
-
 
 Label(fen1, text= " ", font=("Helvetica", 12)).pack()
 
-
-
 fen1.mainloop()
-
-
-
-
 
 
 

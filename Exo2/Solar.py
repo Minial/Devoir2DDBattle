@@ -47,32 +47,32 @@ class Solar(Mob):
         minDist = min(listeDistance) # Distance minimum
 
         if (minDist[0] <= self.rangeMelee): # Distance inférieur à l'attque melee on ne se déplace pas
-            destination = self.position
+           self.destination = self.position
             
         elif (minDist[0] <= self.speed + self.rangeMelee): # Déplacement en range melee (possibilité d'attaque)
             x = self.position[0] + (minDist[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie(listeDistance.index(minDist)).position[0] - self.position[0]) / minDist[1]
             y = self.position[1] + (minDist[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie(listeDistance.index(minDist)).position[1] - self.position[1]) / minDist[1]
-            destination = [x,y]
+            self.destination = [x,y]
 
         elif (minDist[0] <= self.speed + self.rangeRanged): # Déplacement en range distance (possibilité d'attaque)
             x = self.position[0] + (minDist[0] + self.size/2 - self.rangeRanged)*(self.listEnnemie(listeDistance.index(minDist)).position[0] - self.position[0]) / minDist[1]
             y = self.position[1] + (minDist[0] + self.size/2 - self.rangeRanged)*(self.listEnnemie(listeDistance.index(minDist)).position[1] - self.position[1]) / minDist[1]
-            destination = [x,y]
+            self.destination = [x,y]
 
         elif (minDist[0] <= 2*self.speed + self.rangeMelee): # Déplacement en range melee (impossible d'attaquer)
             x = self.position[0] + (minDist[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie(listeDistance.index(minDist)).position[0] - self.position[0]) / minDist[1]
             y = self.position[1] + (minDist[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie(listeDistance.index(minDist)).position[1] - self.position[1]) / minDist[1]
-            destination = [x,y]
+            self.destination = [x,y]
 
         elif (minDist[0] <= 2*self.speed + self.rangeRanged): # Déplacement en range distance (impossible d'attaquer)
             x = self.position[0] + (minDist[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie(listeDistance.index(minDist)).position[0] - self.position[0]) / minDist[1]
             y = self.position[1] + (minDist[0] + self.size/2 - self.rangeMelee)*(self.listEnnemie(listeDistance.index(minDist)).position[1] - self.position[1]) / minDist[1]
-            destination = [x,y]
+            self.destination = [x,y]
 
         else : # Déplacement max
             x = 2*self.speed*(self.listEnnemie(listeDistance.index(minDist)).position[0] - self.position[0])/minDist[1]
             y = 2*self.speed*(self.listEnnemie(listeDistance.index(minDist)).position[1] - self.position[1])/minDist[1]
-            destination = [x,y]
+            self.destination = [x,y]
     
     def IADecision(self, rayon, angle, action, cible1, cible2, cible3, cible4):
         #chaque param est entre 0 et 1 et sera remis dans l'intervarlle utile plus loin
@@ -81,16 +81,17 @@ class Solar(Mob):
         #1/3<x<2/3 attaque melee et >2/3 attaque ranged (possibilité ajout action)
         #cibleX est la cible pour l'attaque numero X du monstre s'il attaque
         #4 cible, car il peut taper 4 mob max
-        self.observationDistanceEnnemie()#permet d'avoir en memoire distance des mobs (ou actualiser)
         nombreAction=3#permet de donner le nombre d'action différente possible par le mob
         mouvX=rayon*self.speed*np.cos(angle*360)#deplacement selon X
         mouvY=rayon*self.speed*np.sin(angle*360)#deplacement selon Y
+        self.destination=[self.position[0]+mouvX,self.position[1]+mouvY]
+        self.observationDistanceEnnemie(self.destination)
+        #on regarde la distance des mobs par rapport a notre position fin de tour
         if action<1/nombreAction :#cas deplacement double distance
-            mouvX=mouvX*2
-            mouvY=mouvY*2
-            
+            self.destination=[self.position[0]+2*mouvX,self.position[1]+2*mouvY]
             return "Deplacement"
         elif action<2/nombreAction:#attaque melee
+            self.observationDistanceEnnemie(self)#permet d'avoir en memoire distance des mobs (ou actualiser)
             degat=[]#chaque case contient 2 case, l'id de la cible, et les dégats qu'il prend
             cible=round(cible1*len(self.listEnnemie))
             if self.listeDistanceEnnemie[cible]<=self.rangeMelee :#on vérifie si on peut taper le mob
@@ -122,7 +123,8 @@ class Solar(Mob):
                 degat.append[cible, self.rangedAttack(self.listEnnemie[cible].ac)]
             #c'est moche mais plus simple qu'un for dans ce cas
             return degat
-            
+        #chaque cas DOIT retourner quelque chose, même si c'est un simple string
+        
             
             
             

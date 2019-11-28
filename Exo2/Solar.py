@@ -92,7 +92,7 @@ class Solar(Mob):
             return "Deplacement"
         elif action<2/nombreAction:#attaque melee
             self.observationDistanceEnnemie(self)#permet d'avoir en memoire distance des mobs (ou actualiser)
-            degat=[]#chaque case contient 2 case, l'id de la cible, et les dégats qu'il prend
+            degat=[]#chaque case contient 2 case, l'id de la cible, et les dégats qu'elle prend
             cible=round(cible1*len(self.listEnnemie))
             if self.listeDistanceEnnemie[cible]<=self.rangeMelee :#on vérifie si on peut taper le mob
                 degat.append[cible, self.meleeAttack(self.listEnnemie[cible].ac)]
@@ -108,7 +108,7 @@ class Solar(Mob):
             #c'est moche mais plus simple qu'un for dans ce cas
             return degat
         elif action<3/nombreAction:#attaque ranged
-            degat=[]#chaque case contient 2 case, l'id de la cible, et les dégats qu'il prend
+            degat=[]#chaque case contient 2 case, l'id de la cible, et les dégats qu'elle prend
             cible=round(cible1*len(self.listEnnemie))
             if self.listeDistanceEnnemie[cible]<=self.rangeRanged :#on vérifie si on peut taper le mob
                 degat.append[cible, self.rangedAttack(self.listEnnemie[cible].ac)]
@@ -125,7 +125,21 @@ class Solar(Mob):
             return degat
         #chaque cas DOIT retourner quelque chose, même si c'est un simple string
         
-            
+    def IAChecking(self):
+        #envoie tout entre 0 et 1
+        #envoie entre 0 et 1 les distances des ennemies en X et Y (donc divisé par 1000)
+        #ainsi que leurs vie normal divisé par 1000 et max par 1000 et leur AC divisé par 100
+        #et idem sur le mob (sauf AC)
+        #peut-etre plus tard la puissance de ces mobs ? ou leur vitesse ?
+        #ça fait deja bcp d'input
+        data=[self.life/1000, self.lifeMax/1000, self.position[0]/1000, self.position[1]/1000]
+        for i in range(len(self.listEnnemie)):
+            data.append(self.lisEnnemie[i].life/1000)
+            data.append(self.lisEnnemie[i].lifeMax/1000)
+            data.append(self.lisEnnemie[i].positionX/1000)
+            data.append(self.lisEnnemie[i].positionY/1000)
+            data.append(self.lisEnnemie[i].ac/100)
+        return data
             
             
             

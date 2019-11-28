@@ -21,7 +21,7 @@ def index_inverse(sort):
           res.append(x.get("name"))
     return(res)
       
-print(index_inverse("inflictSeriousWounds"))
+
 
 # IMPORTANT
 # Les noms des sorts commencent par des minuscules

@@ -123,8 +123,6 @@ class Mob:
             self.canRangedAttack=True
             print("le",self.name,"peut taper cac avec deplacement")
 
-        elif (distance[0] <= self.speed + self.rangeRanged):
-            # Déplacement en range distance (possibilité d'attaque)
         elif (dep <= self.speed + self.rangeRanged): # Déplacement en range distance (possibilité d'attaque)
             x = self.position[0] + (dep - self.rangeRanged)*Xtotal / l
             y = self.position[1] + (dep - self.rangeRanged)*Ytotal / l
@@ -139,8 +137,6 @@ class Mob:
             self.destination = [x,y]
             print("le",self.name,"peut pas taper cac avec deplacement")
 
-        elif (distance[0] <= 2*self.speed + self.rangeRanged):
-            # Déplacement en range distance (impossible d'attaquer)
         elif (dep <= 2*self.speed + self.rangeRanged): # Déplacement en range distance (impossible d'attaquer)
             x = self.position[0] + (dep - self.rangeRanged)*Xtotal / l
             y = self.position[1] + (dep - self.rangeRanged)*Ytotal / l

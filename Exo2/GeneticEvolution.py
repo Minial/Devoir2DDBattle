@@ -13,15 +13,37 @@
 #on fait des mutations aleatoire
 #on recommence avec reseau mutÃ© !
 
+#fichier=open("fichier.txt","a")
+#"r" : lecture "w" : ecriture en ecrasement "a" : ecriture ajout a la fin du fichier
+#contenu=fichier.read()
+
+#ne pas oublier le close()
+
+
+
 from Terrain import Terrain
+from numpy import *
+import pickle
 
 class GeneticEvolution:
     
     def __init__(self):
         self.sizePopulation=20#nombre instance en //
-        self.network=[10,10,10,10]
+        self.network=[10,10,10,10,10]
         #profondeur (len) et hauteur du réseau(10) excluant entre et sortie
         
-    def
+    def neurone (self,inputN,weight):
+        #on prend liste input et liste poids
+        outputN=0
+        for i in range (len(inputN)):
+            outputN+=arctan(inputN[i]*weight[i])#on peut remplacer arctan par autre chose
+        return outputN
     
-    
+    def cycle(self):
+        #un cycle de la mutation
+        listeTerrain=[]
+        for i in range (self.sizePopulation):
+            listeTerrain.append(Terrain())
+        with open('solarIA.DD', 'wb') as fichier:
+            #mon_pickler = pickle.Pickler(fichier)
+            #mon_pickler.dump(score)

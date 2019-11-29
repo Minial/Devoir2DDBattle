@@ -41,7 +41,11 @@ def affiche_jeu():
     global terrain
     canvas.delete(ALL)
     for i in range(len(terrain.listeMobs)):
-        canvas.create_oval(np.round(terrain.listeMobs[i].position[0] - terrain.listeMobs[i].size), np.round(terrain.listeMobs[i].position[1] - terrain.listeMobs[i].size), np.round(terrain.listeMobs[i].position[0] + terrain.listeMobs[i].size), np.round(terrain.listeMobs[i].position[1] + terrain.listeMobs[i].size), fill=terrain.listeMobs[i].color)
+        canvas.create_oval(np.round(terrain.listeMobs[i].position[0] - terrain.listeMobs[i].size),
+                           np.round(terrain.listeMobs[i].position[1] - terrain.listeMobs[i].size),
+                           np.round(terrain.listeMobs[i].position[0] + terrain.listeMobs[i].size),
+                           np.round(terrain.listeMobs[i].position[1] + terrain.listeMobs[i].size),
+                           fill=terrain.listeMobs[i].color)
 
 def etatProchain():
     terrain.action()

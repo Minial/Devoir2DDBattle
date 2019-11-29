@@ -5,12 +5,17 @@ class Warlord(Mob):
 
     def __init__(self, _x, _y, _la, _le):
         Mob.__init__(self, _x, _y, _la, _le, 15, 30, 27, 30, 330, "red")
-        self.life = random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + 65
+        self.life = random.randint(1,10) + random.randint(1,10) + random.randint(1,10)
+        + random.randint(1,10) + random.randint(1,10) + random.randint(1,10)
+        + random.randint(1,10) + random.randint(1,10) + random.randint(1,10)
+        + random.randint(1,10) + random.randint(1,10) + random.randint(1,10)
+        + random.randint(1,10) + 65
         self.lifeMax=self.life
 
 
     def meleeAttack(self, _ac): # Renvoie les dégats que fait le Warlord
-        return(Mob.meleeAttack(self,_ac,20, 1, 8, 10, 3, 19))#normalement il a un bonus de 2d6 mais j'ai  modifié le multiplicateur, c'est plus simple
+        return(Mob.meleeAttack(self,_ac,20, 1, 8, 10, 3, 19))
+        #normalement il a un bonus de 2d6 mais j'ai  modifié le multiplicateur, c'est plus simple
 #        d20 = random.randint(1,20)
 #        if (d20 == 1):
 #            return 0

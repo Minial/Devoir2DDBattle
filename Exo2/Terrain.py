@@ -84,13 +84,16 @@ class Terrain :
             self.listeMobs[i].tourMob = True
         self.tourvar = True
         self.listeMobs[0].deplacement(9)
-        self.listeMobs[10].deplacement(0)
+        self.listeMobs[1].deplacement(0)
+        self.listeMobs[2].deplacement(0)
+        self.listeMobs[3].deplacement(0)
 
 
     def action(self):
         if (self.tourvar):
             i=0
             while(i<len(self.listeMobs)):
+                #print(i)
                 if (not(self.listeMobs[i].tourMob)):
                     i=i+1
                 else :

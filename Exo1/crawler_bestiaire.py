@@ -96,7 +96,8 @@ for k in range(0, len(liste_pages_to_crawl)):
                     else:
                         creature_json = {
                             "name": creature_nom,
-                            "spells": creature_spells
+                            "spells": creature_spells,
+                            "URL": URL
                         }
                         creature_nom = strlink.split("<b>")[1].split("<")[0].split("\t")[0]
                         creature_spells = []
@@ -110,7 +111,8 @@ for k in range(0, len(liste_pages_to_crawl)):
                     else:
                         creature_json = {
                             "name": creature_nom,
-                            "spells": creature_spells
+                            "spells": creature_spells,
+                            "URL": URL
                         }
                         creature_nom = strlink.split(">")[1].split("<")[0].split("\t")[0]
                         creature_spells = []
@@ -129,7 +131,8 @@ for k in range(0, len(liste_pages_to_crawl)):
         
     creature_json = {
         "name": creature_nom,
-        "spells": creature_spells
+        "spells": creature_spells,
+        "URL": URL
     }
     all_base.append(creature_json)
     col.insert_one(creature_json)

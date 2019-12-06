@@ -1,20 +1,3 @@
-#    def move(self):
-#        if (self.position != self.destination):
-#            dx = self.position[0] - self.destination[0]
-#            dy = self.position[1] - self.destination[1]
-#            l = np.sqrt(dx*dx + dy*dy)
-#            px = dx*self.speed / l
-#            py = dy*self.speed / l
-#            if (self.speed > l):
-#                self.position = self.destination
-#            else :
-#                if (self.terrain.constraint(self.position[0]-px, self.position[1]-py, self.size)):
-#                    self.position = [self.position[0]-px, self.position[1]-py]
-#                else :
-#                    self.destination = self.position
-
-
-
 #classe abstraite des différents mob,
 #pour éviter d'avoir le meme code partout
 import random
@@ -87,10 +70,10 @@ class Mob:
         #permet de garder en mémoire la distance de toutles ennemies
         self.idNearestEnnemie = []
         for i in range(len(self.listEnnemie)): # Calcul des distance avec les ennemies
-            dx = posi[0] - self.listEnnemie[i].position[0]
-            dy = posi[1] - self.listEnnemie[i].position[1]
+            dx = posi[0] - self.listEnnemie[i].destination[0]
+            dy = posi[1] - self.listEnnemie[i].destination[1]
             distance = np.sqrt(dx*dx + dy*dy)
-            self.listeDistanceEnnemie[i]=[distance- self.size/2 -self.listEnnemie[i].size/2, distance]
+            self.listeDistanceEnnemie[i]=[distance - self.size/2 - self.listEnnemie[i].size/2, distance]
             j=0
             while (j<len(self.idNearestEnnemie) and self.listeDistanceEnnemie[i][0]>
                    self.listeDistanceEnnemie[self.idNearestEnnemie[j]][0]):
@@ -102,9 +85,9 @@ class Mob:
         
         distance=self.listeDistanceEnnemie[idMobVise]#indique la distance du mob visé
         #en 0 c'est celle entre les bords des mobs et en 1 entre leur centre
-        
-        Xtotal = self.listEnnemie[idMobVise].position[0]- self.position[0]# selon thales c'est le X total
-        Ytotal = self.listEnnemie[idMobVise].position[1]- self.position[1]
+
+        Xtotal = self.listEnnemie[idMobVise].destination[0]- self.position[0]# selon thales c'est le X total
+        Ytotal = self.listEnnemie[idMobVise].destination[1]- self.position[1]
         l=distance[1]
         dep=distance[0]#pensez a soustraire distance attack
         if (dep <= self.rangeMelee): # Distance inférieur à l'attque melee on ne se déplace pas
@@ -135,16 +118,15 @@ class Mob:
             x = self.position[0] + (dep - self.rangeMelee)*Xtotal / l
             y = self.position[1] + (dep - self.rangeMelee)*Ytotal / l
             self.destination = [x,y]
-            print("le",self.name,"peut pas taper cac avec deplacement")
+            print("le",self.name,"peut pas taper cac avec deplacement (cac)")
 
         elif (dep <= 2*self.speed + self.rangeRanged): # Déplacement en range distance (impossible d'attaquer)
             x = self.position[0] + (dep - self.rangeRanged)*Xtotal / l
             y = self.position[1] + (dep - self.rangeRanged)*Ytotal / l
             self.destination = [x,y]
-            print("le",self.name,"peut pas taper distance avec deplacement")
+            print("le",self.name,"peut pas taper distance avec deplacement (distance)")
 
         else : # Déplacement max
-            print("6")
             x = self.position[0] + 2*self.speed*Xtotal/l
             y = self.position[0] + 2*self.speed*Ytotal/l
             self.destination = [x,y]
@@ -158,12 +140,14 @@ class Mob:
             dx = self.position[0] - self.destination[0]
             dy = self.position[1] - self.destination[1]
             l = np.sqrt(dx*dx + dy*dy)
-            px = dx*self.speed/10 / l
-            py = dy*self.speed/10 / l
-            if (self.speed/10 > l):
+            px = dx*self.speed/12 / l
+            py = dy*self.speed/12 / l
+            if (self.speed/12 > l):
+                #print("ok")
                 self.position = self.destination
                 self.tourMob = False
             else :
+                #print("dep")
                 self.position = [self.position[0]-px, self.position[1]-py]
 
         #else:

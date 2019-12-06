@@ -83,23 +83,24 @@ class Terrain :
         for i in range(len(self.listeMobs)):
             self.listeMobs[i].tourMob = True
         self.tourvar = True
-        self.listeMobs[0].deplacement(9)
-        self.listeMobs[1].deplacement(0)
-        self.listeMobs[2].deplacement(0)
-        self.listeMobs[3].deplacement(0)
+        for i in range(len(self.listeMobs)):
+            if (i == 0):
+                self.listeMobs[i].deplacement(9)
+            else :
+                self.listeMobs[i].deplacement(0)
 
 
     def action(self):
         if (self.tourvar):
             i=0
             while(i<len(self.listeMobs)):
-                #print(i)
                 if (not(self.listeMobs[i].tourMob)):
                     i=i+1
                 else :
                     self.listeMobs[i].deltaAction()
                     return 0
         self.tourvar = False
+        #print("tour fini")
     
 terr=Terrain()
 terr.listeMobs[0].observationDistanceEnnemie()

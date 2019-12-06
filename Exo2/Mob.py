@@ -150,14 +150,17 @@ class Mob:
             else :
                 #print("dep")
                 self.position = [self.position[0]-px, self.position[1]-py]
+        else:
+            for i in range(len(self.listEnnemie)):
+                if (self.listEnnemie[i].life >0):
+                    if (self.canMeleeAttack):
+                        self.listEnnemie[i].life = self.listEnnemie[i].life - self.meleeAttack(self.listEnnemie[i].ac)
+                    elif (self.canRangedAttack):
+                        self.listEnnemie[i].life = self.listEnnemie[i].life - self.rangedAttack(self.listEnnemie[i].ac)
+                    print(self.listEnnemie[i].name, self.listEnnemie[i].life)
+                    self.tourMob = False
+                    return 0
 
-
-        #else:
-        #    if (self.canMeleeAttack):
-        #        self.listEnnemie[id].life = self.listEnnemie[id].life - meleeAttack(self.listEnnemie[id].ac)
-        #    elif (self.canRangedAttack):
-        #        self.listEnnemie[id].life = self.listEnnemie[id].life - rangedAttack(self.listEnnemie[id].ac)
-        #    self.tourMob = False
 
     def hardIA(self):
         if (self.life<=0):

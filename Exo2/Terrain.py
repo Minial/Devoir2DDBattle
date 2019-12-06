@@ -69,7 +69,7 @@ class Terrain :
                     chevauchement=True
         return listeCoord
         
-    def tour2(self):
+    def tour3(self):
         for i in range(len(self.listeMobs)):
             self.listeMobs[i].tourMob = True
         self.tourvar = True
@@ -78,7 +78,7 @@ class Terrain :
         for i in range(len(self.listeMobs)):
             self.listeMobs[i].hardIA()
 
-    def tour3(self):
+    def tour2(self):
         for i in range(len(self.listeMobs)):
             self.listeMobs[i].tourMob = True
         self.tourvar = True

@@ -161,7 +161,8 @@ class Mob:
 
     def HardIA(self):
         if (self.life<=0):
-            return "mort"
+            #return "mort"
+            return
         weakID = 0
         degat = []
         attaquePossible = 0
@@ -186,6 +187,7 @@ class Mob:
                     cible = self.listEnnemie[self.idNearestEnnemie[numberTemp]]
                     losedLife=self.meleeAttack(cible.ac)
                     degat.append([losedLife,cible])
+                    self.listEnnemie[self.idNearestEnnemie[numberTemp]].life-=losedLife
                     attaquePossible-=1
                     if (cible.life-losedLife <= 0):#on check si mort
                         numberTemp+=1
@@ -207,6 +209,7 @@ class Mob:
                     cible = self.listEnnemie[self.idNearestEnnemie[numberTemp]]
                     losedLife=self.rangedAttack(cible.ac)
                     degat.append([losedLife,cible])
+                    self.listEnnemie[self.idNearestEnnemie[numberTemp]].life-=losedLife
                     attaquePossible-=1
                     if (cible.life-losedLife <= 0):#on check si mort
                         numberTemp+=1

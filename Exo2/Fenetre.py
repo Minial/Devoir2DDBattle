@@ -11,7 +11,7 @@ from Terrain import Terrain
 # ###
 # Constante
 terrain = Terrain()
-time=50
+time=3
 w=terrain.tailleX
 h=terrain.tailleY
 

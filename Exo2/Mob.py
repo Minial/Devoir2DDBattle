@@ -28,7 +28,7 @@ class Mob:
         self.name=self.__class__.__name__#peut servir ou pas
         
         
-    def meleeAttack(self, _ac, _taco, _diceNumber, _dicePower, _bonusDegat, _multiCrit=2, _critLuck=20):
+    def meleeAttack(self, _ac, _taco=10, _diceNumber=1, _dicePower=6, _bonusDegat=0, _multiCrit=2, _critLuck=20):
         # Renvoie les dégats que fait le Mob
         d20 = random.randint(1,20)#jet de toucher du mob
         if (d20 == 1):#echec critique on touche jamais
@@ -46,7 +46,7 @@ class Mob:
             #dans les autres cas on touche pas
             return degats
     
-    def rangedAttack(self, _ac, _taco, _diceNumber, _dicePower, _bonusDegat, _multiCrit=2, _critLuck=20):
+    def rangedAttack(self, _ac, _taco=10, _diceNumber=1, _dicePower=6, _bonusDegat=0, _multiCrit=2, _critLuck=20):
         # Renvoie les dégats que fait le Mob
         d20 = random.randint(1,20)#jet de toucher du mob
         if (d20 == 1):#echec critique on touche jamais
@@ -160,13 +160,58 @@ class Mob:
         #    self.tourMob = False
 
     def HardIA(self):
+        if (self.life<=0):
+            return "mort"
         weakID = 0
         degat = []
+        attaquePossible = 0
         for i in range (len(self.listEnnemie)):#on cherche le plus faible pour le taper
             if (self.listEnnemie[weakID].life>self.listEnnemie[i].life):
                 weakID=i
         
         self.deplacement(weakID)
         self.observationDistanceEnnemie(self.destination)
-        #if (self.listeDistanceEnnemie[weakID][0]<=self.rangeMelee and self.canMeleeAttack):#si on peut taper le mob cac
-            
+        if (self.canMeleeAttack):
+            #si on peut taper les mobs les plus proches cac, meme si pas le plus faible,
+            #de toute façon il doit etre dedans
+#self.listeDistanceEnnemie = []#stock les distances des différents ennemies
+#self.idNearestEnnemie = []
+            attaquePossible = self.numberMelee
+            numberTemp=0
+            while (attaquePossible > 0 and numberTemp<len(self.listEnnemie) and
+                   self.listeDistanceEnnemie[self.idNearestEnnemie[numberTemp]][0]<self.rangeMelee):
+                #possibilité attaquer un mob
+                if (self.listEnnemie[self.idNearestEnnemie[numberTemp]].life>0):
+                    #on vas pas taper un mort
+                    cible = self.listEnnemie[self.idNearestEnnemie[numberTemp]]
+                    losedLife=self.meleeAttack(cible.ac)
+                    degat.append([losedLife,cible])
+                    attaquePossible-=1
+                    if (cible.life-losedLife <= 0):#on check si mort
+                        numberTemp+=1
+                else :#le mob est déjà mort
+                    numberTemp+=1
+            return degat
+        elif (self.canRangedAttack):
+            #si on peut taper les mobs les plus proches cac, meme si pas le plus faible,
+            #de toute façon il doit etre dedans
+#self.listeDistanceEnnemie = []#stock les distances des différents ennemies
+#self.idNearestEnnemie = []
+            attaquePossible = self.numberRanged
+            numberTemp=0
+            while (attaquePossible > 0 and numberTemp<len(self.listEnnemie) and
+                   self.listeDistanceEnnemie[self.idNearestEnnemie[numberTemp]][0]<self.rangeRanged):
+                #possibilité attaquer un mob
+                if (self.listEnnemie[self.idNearestEnnemie[numberTemp]].life>0):
+                    #on vas pas taper un mort
+                    cible = self.listEnnemie[self.idNearestEnnemie[numberTemp]]
+                    losedLife=self.rangedAttack(cible.ac)
+                    degat.append([losedLife,cible])
+                    attaquePossible-=1
+                    if (cible.life-losedLife <= 0):#on check si mort
+                        numberTemp+=1
+                else :#le mob est déjà mort
+                    numberTemp+=1
+            return degat
+        else:
+            return "deplacement"

@@ -70,6 +70,4 @@ def getUrlSpell(spell):
             t += 1
         k+=1
     return("http://legacy.aonprd.com/ultimateMagic/spells/" + spell + ".html#" + to_return)
-        
-print(getUrlSpell("ceciEstUnSuperTest"))
             

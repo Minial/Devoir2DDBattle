@@ -69,18 +69,16 @@ class Terrain :
                     chevauchement=True
         return listeCoord
         
-    def tour(self):#le mob se tape lui-même
-        self.listeMobs[0].life=self.listeMobs[0].life-self.listeMobs[0].meleeAttack(18)
-        self.listeMobs[0].position[0]=self.listeMobs[0].position[0]+10
-        print (self.listeMobs[0].life)
-        for mob in self.listeMobs:
-            if mob.life<=0 :
-                print("il est mort !")
-                del self.listeMobs[self.listeMobs.index(mob)]
-            else:
-                print("invaincu !")
-
     def tour2(self):
+        for i in range(len(self.listeMobs)):
+            self.listeMobs[i].tourMob = True
+        self.tourvar = True
+        #init tour
+        
+        for i in range(len(self.listeMobs)):
+            self.listeMobs[i].hardIA()
+
+    def tour3(self):
         for i in range(len(self.listeMobs)):
             self.listeMobs[i].tourMob = True
         self.tourvar = True
@@ -103,6 +101,6 @@ class Terrain :
         self.tourvar = False
         #print("tour fini")
     
-terr=Terrain()
-terr.listeMobs[0].observationDistanceEnnemie()
-terr.listeMobs[0].deplacement(0)
+#terr=Terrain()
+#terr.listeMobs[0].observationDistanceEnnemie()
+#terr.listeMobs[0].deplacement(0)

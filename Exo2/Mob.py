@@ -1,7 +1,6 @@
 #classe abstraite des différents mob,
 #pour éviter d'avoir le meme code partout
 import random
-from random import *
 import numpy as np
 
 
@@ -159,7 +158,7 @@ class Mob:
         #        self.listEnnemie[id].life = self.listEnnemie[id].life - rangedAttack(self.listEnnemie[id].ac)
         #    self.tourMob = False
 
-    def HardIA(self):
+    def hardIA(self):
         if (self.life<=0):
             #return "mort"
             return

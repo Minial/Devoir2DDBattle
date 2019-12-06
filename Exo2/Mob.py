@@ -6,7 +6,7 @@ import numpy as np
 
 
 class Mob:
-    def __init__(self, _x, _y, _la, _le, _size, _speed, _ac, _rangeMelee, _rangeRanged, _color):
+    def __init__(self, _x, _y, _la, _le, _size, _speed, _ac, _rangeMelee, _rangeRanged, _numberMelee, _numberRanged, _color):
         self.color = _color
         self.size = _size#diametre du mob
         self.position = [_x, _y]
@@ -17,6 +17,8 @@ class Mob:
         self.listEnnemie = _le
         self.rangeMelee = _rangeMelee
         self.rangeRanged = _rangeRanged
+        self.numberMelee = _numberMelee
+        self.numberRanged = _numberRanged
         self.listeDistanceEnnemie = []#stock les distances des différents ennemies
         self.idNearestEnnemie = []
         self.tourMob=False#le mob est en train de faire son tour
@@ -128,7 +130,7 @@ class Mob:
 
         else : # Déplacement max
             x = self.position[0] + 2*self.speed*Xtotal/l
-            y = self.position[0] + 2*self.speed*Ytotal/l
+            y = self.position[1] + 2*self.speed*Ytotal/l
             self.destination = [x,y]
             print("le",self.name,"peut pas taper avec deplacement")
 
@@ -156,3 +158,15 @@ class Mob:
         #    elif (self.canRangedAttack):
         #        self.listEnnemie[id].life = self.listEnnemie[id].life - rangedAttack(self.listEnnemie[id].ac)
         #    self.tourMob = False
+
+    def HardIA(self):
+        weakID = 0
+        degat = []
+        for i in range (len(self.listEnnemie)):#on cherche le plus faible pour le taper
+            if (self.listEnnemie[weakID].life>self.listEnnemie[i].life):
+                weakID=i
+        
+        self.deplacement(weakID)
+        self.observationDistanceEnnemie(self.destination)
+        #if (self.listeDistanceEnnemie[weakID][0]<=self.rangeMelee and self.canMeleeAttack):#si on peut taper le mob cac
+            

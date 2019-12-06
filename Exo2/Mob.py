@@ -1,7 +1,6 @@
 #classe abstraite des différents mob,
 #pour éviter d'avoir le meme code partout
 import random
-from random import *
 import numpy as np
 
 
@@ -26,7 +25,7 @@ class Mob:
         self.name=self.__class__.__name__#peut servir ou pas
         
         
-    def meleeAttack(self, _ac, _taco, _diceNumber, _dicePower, _bonusDegat, _multiCrit=2, _critLuck=20):
+    def meleeAttack(self, _ac, _taco=10, _diceNumber=1, _dicePower=6, _bonusDegat=10, _multiCrit=2, _critLuck=20):
         # Renvoie les dégats que fait le Mob
         d20 = random.randint(1,20)#jet de toucher du mob
         if (d20 == 1):#echec critique on touche jamais
@@ -44,7 +43,7 @@ class Mob:
             #dans les autres cas on touche pas
             return degats
     
-    def rangedAttack(self, _ac, _taco, _diceNumber, _dicePower, _bonusDegat, _multiCrit=2, _critLuck=20):
+    def rangedAttack(self, _ac, _taco=10, _diceNumber=1, _dicePower=6, _bonusDegat=10, _multiCrit=2, _critLuck=20):
         # Renvoie les dégats que fait le Mob
         d20 = random.randint(1,20)#jet de toucher du mob
         if (d20 == 1):#echec critique on touche jamais
@@ -91,7 +90,6 @@ class Mob:
         l=distance[1]
         dep=distance[0]#pensez a soustraire distance attack
         if (dep <= self.rangeMelee): # Distance inférieur à l'attque melee on ne se déplace pas
-            print("1")
             self.destination = self.position
             self.canMeleeAttack=True
             self.canRangedAttack=True
@@ -128,7 +126,7 @@ class Mob:
 
         else : # Déplacement max
             x = self.position[0] + 2*self.speed*Xtotal/l
-            y = self.position[0] + 2*self.speed*Ytotal/l
+            y = self.position[1] + 2*self.speed*Ytotal/l
             self.destination = [x,y]
             print("le",self.name,"peut pas taper avec deplacement")
 
@@ -145,14 +143,15 @@ class Mob:
             if (self.speed/12 > l):
                 #print("ok")
                 self.position = self.destination
-                self.tourMob = False
+                #self.tourMob = False
             else :
                 #print("dep")
                 self.position = [self.position[0]-px, self.position[1]-py]
 
-        #else:
-        #    if (self.canMeleeAttack):
-        #        self.listEnnemie[id].life = self.listEnnemie[id].life - meleeAttack(self.listEnnemie[id].ac)
-        #    elif (self.canRangedAttack):
-        #        self.listEnnemie[id].life = self.listEnnemie[id].life - rangedAttack(self.listEnnemie[id].ac)
-        #    self.tourMob = False
+        else:
+            if (self.canMeleeAttack):
+                self.listEnnemie[0].life = self.listEnnemie[0].life - self.meleeAttack(self.listEnnemie[0].ac)
+            elif (self.canRangedAttack):
+                self.listEnnemie[0].life = self.listEnnemie[0].life - self.rangedAttack(self.listEnnemie[0].ac)
+                print(self.listEnnemie[0].name, self.listEnnemie[0].life)
+            self.tourMob = False

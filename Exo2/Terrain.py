@@ -24,6 +24,7 @@ class Terrain :
         self.listeMobs = []#tout le monde !
         self.listeGentils = []#les gentils !
         self.listeMéchants = []#les vilains pas bô
+        self.listeAttaque = []#attaque du tour
         self.listeMobs.append(Solar(500,750,self.listeGentils,self.listeMéchants))
         self.listeGentils.append(self.listeMobs[0])
         print ("Prenez garde au solaire avec ses",self.listeMobs[0].life,"PV !")

@@ -48,8 +48,8 @@ def get_all_creatures():
           if (k not in all_names):
               all_names.append(k)
     
-    #print(all_spells)
-    #print(len(all_spells))
+    #print(all_names)
+    #print(len(all_names))
     return(all_names)
     
     client.close()
@@ -70,4 +70,9 @@ def getUrlSpell(spell):
             t += 1
         k+=1
     return("http://legacy.aonprd.com/ultimateMagic/spells/" + spell + ".html#" + to_return)
+           
+           
+           
+          http://legacy.aonprd.com/ultimateMagic/spells/augury.html#augury
+          http://legacy.aonprd.com/coreRulebook/spells/augury.html#augury
             

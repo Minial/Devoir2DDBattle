@@ -69,10 +69,10 @@ def getUrlSpell(spell):
             k = 0
             t += 1
         k+=1
-    return("http://legacy.aonprd.com/ultimateMagic/spells/" + spell + ".html#" + to_return)
+    return("http://legacy.aonprd.com/coreRulebook/spells/" + spell + ".html#" + to_return)
            
+           #http://legacy.aonprd.com/ultimateMagic/spells/ sinon ??
            
-           
-          http://legacy.aonprd.com/ultimateMagic/spells/augury.html#augury
-          http://legacy.aonprd.com/coreRulebook/spells/augury.html#augury
+def getUrlCreature(creature):
+    #a faire
             

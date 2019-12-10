@@ -78,10 +78,9 @@ def getUrlCreature(creature):
     db = client["DD_Creatures"]
     col = db["Creatures"]
     
-    myquery = { "name": creature }
-    mydoc = col.find(myquery, {"_id":0, "URL":1})
+    myquery = { "name": str(creature) }
+    mydoc = col.find(myquery, {"URL":1})
     for x in mydoc:
         print(x.get("URL"))
         
-getUrlCreature("Zygomind")
-            
+getUrlCreature("Zygomind")            

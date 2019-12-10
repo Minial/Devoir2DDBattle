@@ -39,14 +39,14 @@ def get_all_creatures():
 
     all_names = []
        
-    myquery = { "name": { "$ne": [] } }
+    myquery = { "name": { "$ne": "ERROR NAME" } }
     
     mydoc = col.find(myquery, {"_id":0, "name":1})
     
     for x in mydoc:
-      for k in x.get("name"):
-          if (k not in all_names):
-              all_names.append(k)
+        k = x.get("name")
+        if (k not in all_names):
+            all_names.append(k)
     
     #print(all_names)
     #print(len(all_names))
@@ -74,5 +74,14 @@ def getUrlSpell(spell):
            #http://legacy.aonprd.com/ultimateMagic/spells/ sinon ??
            
 def getUrlCreature(creature):
-    #a faire
+    client = pymongo.MongoClient("mongodb://localhost:27017/")
+    db = client["DD_Creatures"]
+    col = db["Creatures"]
+    
+    myquery = { "name": creature }
+    mydoc = col.find(myquery, {"_id":0, "URL":1})
+    for x in mydoc:
+        print(x.get("URL"))
+        
+getUrlCreature("Zygomind")
             

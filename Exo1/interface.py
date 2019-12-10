@@ -30,6 +30,8 @@ from index_inverse import index_inverse
 
 liste_sorts = get_all_spells()
 liste_sorts.sort()
+liste_CS = get_all_creatures()
+liste_CS.sort()
 
 
 
@@ -42,6 +44,16 @@ def clic(evt):
     for j in range(0,len(liste_creatures)):
         lc.insert("end",liste_creatures[j])
     return sort
+
+def clic2(evt):
+    i=li.curselection()
+    creature = li.get(i)
+    lc.delete("0","end")
+    liste_S = index(creature)
+    liste_S.sort()
+    for j in range(0,len(liste_S)):
+        lc.insert("end",liste_S[j])
+    return creature
     
 def openwebsort():
     i=li.curselection()
@@ -72,7 +84,7 @@ def inverse_sens_CS():
     Label(fen2, text= "Nom de la créature :").pack()
 
 
-    #Premiere liste comportant les sorts
+    #Premiere liste comportant les creatures
     li = tk.Listbox(fen2)
     for i in range(0,len(liste_CS)):
         li.insert("end",liste_CS[i])
@@ -83,7 +95,7 @@ def inverse_sens_CS():
 
 
     Label(fen2, text= " ", font=("Helvetica", 12)).pack()
-    Label(fen2, text= "Noms des créatures ayant ce sort :").pack()
+    Label(fen2, text= "Noms des sorts de cette creature :").pack()
 
     #Liste comportant les créatures
     lc = tk.Listbox(fen2)

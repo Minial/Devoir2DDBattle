@@ -96,7 +96,7 @@ class Mob:
             self.destination = self.position
             self.canMeleeAttack=True
             self.canRangedAttack=True
-            print("le",self.name,"peut taper au cac sans deplacement")
+            #print("le",self.name,"peut taper au cac sans deplacement")
             
         elif (dep <= self.speed + self.rangeMelee): # Déplacement en range melee (possibilité d'attaque)
             
@@ -105,7 +105,7 @@ class Mob:
             self.destination = [x,y]
             self.canMeleeAttack=True
             self.canRangedAttack=True
-            print("le",self.name,"peut taper cac avec deplacement")
+            #print("le",self.name,"peut taper cac avec deplacement")
 
         elif (dep <= self.speed + self.rangeRanged): # Déplacement en range distance (possibilité d'attaque)
             x = self.position[0] + (dep - self.rangeRanged)*Xtotal / l
@@ -113,27 +113,27 @@ class Mob:
             self.destination = [x,y]
             self.canMeleeAttack=False
             self.canRangedAttack=True
-            print("le",self.name,"peut taper distance avec deplacement")
+            #print("le",self.name,"peut taper distance avec deplacement")
 
         elif (dep <= 2*self.speed + self.rangeMelee): # Déplacement en range melee (impossible d'attaquer)
             x = self.position[0] + (dep - self.rangeMelee)*Xtotal / l
             y = self.position[1] + (dep - self.rangeMelee)*Ytotal / l
             self.destination = [x,y]
-            print("le",self.name,"peut pas taper cac avec deplacement (cac)")
+            #print("le",self.name,"peut pas taper cac avec deplacement (cac)")
 
         elif (dep <= 2*self.speed + self.rangeRanged): # Déplacement en range distance (impossible d'attaquer)
             x = self.position[0] + (dep - self.rangeRanged)*Xtotal / l
             y = self.position[1] + (dep - self.rangeRanged)*Ytotal / l
             self.destination = [x,y]
-            print("le",self.name,"peut pas taper distance avec deplacement (distance)")
+            #print("le",self.name,"peut pas taper distance avec deplacement (distance)")
 
         else : # Déplacement max
             x = self.position[0] + 2*self.speed*Xtotal/l
             y = self.position[1] + 2*self.speed*Ytotal/l
             self.destination = [x,y]
-            print("le",self.name,"peut pas taper avec deplacement")
+            #print("le",self.name,"peut pas taper avec deplacement")
 
-        print(self.destination)
+        #print(self.destination)
 
 
     def deltaAction(self):
@@ -157,7 +157,7 @@ class Mob:
                         self.listEnnemie[i].life = self.listEnnemie[i].life - self.meleeAttack(self.listEnnemie[i].ac)
                     elif (self.canRangedAttack):
                         self.listEnnemie[i].life = self.listEnnemie[i].life - self.rangedAttack(self.listEnnemie[i].ac)
-                    print(self.listEnnemie[i].name, self.listEnnemie[i].life)
+                    #print(self.listEnnemie[i].name, self.listEnnemie[i].life)
                     self.tourMob = False
                     return 0
 
@@ -182,6 +182,8 @@ class Mob:
 #self.idNearestEnnemie = []
             attaquePossible = self.numberMelee
             numberTemp=0
+            nombreEnnemie = len(self.listEnnemie)
+            print("Le", self.name, " peut taper cac")
             while (attaquePossible > 0 and numberTemp<len(self.listEnnemie) and
                    self.listeDistanceEnnemie[self.idNearestEnnemie[numberTemp]][0]<self.rangeMelee):
                 #possibilité attaquer un mob
@@ -190,10 +192,13 @@ class Mob:
                     cible = self.listEnnemie[self.idNearestEnnemie[numberTemp]]
                     losedLife=self.meleeAttack(cible.ac)
                     degat.append([losedLife,cible])
+                    print("le",self.name,"fait", losedLife, "dégat au cac à",cible.name)
                     self.listEnnemie[self.idNearestEnnemie[numberTemp]].life-=losedLife
                     attaquePossible-=1
                     if (cible.life-losedLife <= 0):#on check si mort
                         numberTemp+=1
+                        nombreEnnemie-=1#il y a un ennemie en moins sur le terrain
+                        print("Le", cible.name, " est mort !")
                 else :#le mob est déjà mort
                     numberTemp+=1
             return degat
@@ -204,6 +209,8 @@ class Mob:
 #self.idNearestEnnemie = []
             attaquePossible = self.numberRanged
             numberTemp=0
+            nombreEnnemie = len(self.listEnnemie)
+            print("Le", self.name, " peut taper distance")
             while (attaquePossible > 0 and numberTemp<len(self.listEnnemie) and
                    self.listeDistanceEnnemie[self.idNearestEnnemie[numberTemp]][0]<self.rangeRanged):
                 #possibilité attaquer un mob
@@ -212,10 +219,13 @@ class Mob:
                     cible = self.listEnnemie[self.idNearestEnnemie[numberTemp]]
                     losedLife=self.rangedAttack(cible.ac)
                     degat.append([losedLife,cible])
+                    print("le",self.name,"fait", losedLife, "dégat à distance à",cible.name)
                     self.listEnnemie[self.idNearestEnnemie[numberTemp]].life-=losedLife
                     attaquePossible-=1
                     if (cible.life-losedLife <= 0):#on check si mort
                         numberTemp+=1
+                        nombreEnnemie-=1#il y a un ennemie en moins sur le terrain
+                        print("Le", cible.name, "est mort !")
                 else :#le mob est déjà mort
                     numberTemp+=1
             return degat

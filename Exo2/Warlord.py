@@ -5,11 +5,11 @@ class Warlord(Mob):
 
     def __init__(self, _x, _y, _la, _le):
         Mob.__init__(self, _x, _y, _la, _le, 15, 30, 27, 15, 25, 3, 1, "red")
-        self.life = random.randint(1,10) + random.randint(1,10) + random.randint(1,10)
+        self.life = (random.randint(1,10) + random.randint(1,10) + random.randint(1,10)
         + random.randint(1,10) + random.randint(1,10) + random.randint(1,10)
         + random.randint(1,10) + random.randint(1,10) + random.randint(1,10)
         + random.randint(1,10) + random.randint(1,10) + random.randint(1,10)
-        + random.randint(1,10) + 65
+        + random.randint(1,10) + 65)
         self.lifeMax=self.life
 
 

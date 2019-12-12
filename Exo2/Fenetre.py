@@ -29,7 +29,7 @@ def affiche_fenetre():
     
     canvas = Canvas(fenetre, width=w, height=h, background='white')
     canvas.pack(side=LEFT)
-    bouttonTour = Button(fenetre, text ='Tour', command=terrain.tour2)
+    bouttonTour = Button(fenetre, text ='Tour', command=terrain.tour3)
     bouttonTour.pack(side=RIGHT, padx=10, pady=10)
 
     affiche_jeu()

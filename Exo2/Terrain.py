@@ -74,20 +74,37 @@ class Terrain :
             self.listeMobs[i].tourMob = True
         self.tourvar = True
         #init tour
-        
-        for i in range(len(self.listeMobs)):
+        i=0
+        nombreMobs=len(self.listeMobs)
+        while i<nombreMobs:
+        #for i in range(len(self.listeMobs)):
             self.listeMobs[i].hardIA()
+            cadavre=self.nettoyageCadavre(i)
+            i=i+1-cadavre[0]
+            nombreMobs=len(self.listeMobs)
+        print ("==========fin tour==========")
 
-    def tour2(self):
-        for i in range(len(self.listeMobs)):
-            self.listeMobs[i].tourMob = True
-        self.tourvar = True
-        for i in range(len(self.listeMobs)):
-            if (i == 0):
-                self.listeMobs[i].deplacement(9)
-            else :
-                self.listeMobs[i].deplacement(0)
-
+    def nettoyageCadavre(self,index):
+        numberMobs=len(self.listeMobs)
+        i=0
+        cadavre=[0,0]
+        toremove=[]
+        while i<numberMobs:
+            if (self.listeMobs[i].life<=0):
+                #self.listeMobs.remove(self.listeMobs[i])
+                toremove.append(self.listeMobs[i])
+                #cadavre+=1
+                if (i<index):
+                    cadavre[0]+=1
+                elif(i>index):
+                    cadavre[1]+=1
+                #else:
+                    #nothing
+            i+=1
+        for i in range (len(toremove)):
+            self.listeMobs.remove(toremove[i])
+        return cadavre
+    
 
     def action(self):
         if (self.tourvar):
@@ -100,6 +117,16 @@ class Terrain :
                     return 0
         self.tourvar = False
         #print("tour fini")
+        
+    def tour2(self):
+        for i in range(len(self.listeMobs)):
+            self.listeMobs[i].tourMob = True
+        self.tourvar = True
+        for i in range(len(self.listeMobs)):
+            if (i == 0):
+                self.listeMobs[i].deplacement(9)
+            else :
+                self.listeMobs[i].deplacement(0)
     
 #terr=Terrain()
 #terr.listeMobs[0].observationDistanceEnnemie()

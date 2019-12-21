@@ -52,15 +52,16 @@ def affiche_jeu():
         if (terrain.listeMobs[i].life > 0):
             canvas.create_rectangle(np.round(terrain.listeMobs[i].position[0] - terrain.listeMobs[i].size),
                                 np.round(terrain.listeMobs[i].position[1] - terrain.listeMobs[i].size - 7),
-                                np.round(terrain.listeMobs[i].position[0] - terrain.listeMobs[i].size*(1 - 2*terrain.listeMobs[i].life/terrain.listeMobs[i].lifeMax)),
-                                np.round(terrain.listeMobs[i].position[1] - terrain.listeMobs[i].size - 3),
-                                fill="green")
-            
-            canvas.create_rectangle(np.round(terrain.listeMobs[i].position[0] - terrain.listeMobs[i].size*(1 - 2*terrain.listeMobs[i].life/terrain.listeMobs[i].lifeMax)),
-                                np.round(terrain.listeMobs[i].position[1] - terrain.listeMobs[i].size - 7),
                                 np.round(terrain.listeMobs[i].position[0] + terrain.listeMobs[i].size),
                                 np.round(terrain.listeMobs[i].position[1] - terrain.listeMobs[i].size - 3),
                                 fill="red")
+                                
+            canvas.create_rectangle(np.round(terrain.listeMobs[i].position[0] - terrain.listeMobs[i].size),
+                                np.round(terrain.listeMobs[i].position[1] - terrain.listeMobs[i].size - 7),
+                                np.round(terrain.listeMobs[i].position[0] - terrain.listeMobs[i].size*(1 - 2*terrain.listeMobs[i].life/terrain.listeMobs[i].lifeMax)),
+                                np.round(terrain.listeMobs[i].position[1] - terrain.listeMobs[i].size - 3),
+                                fill="green")
+
 
 
 def etatProchain():

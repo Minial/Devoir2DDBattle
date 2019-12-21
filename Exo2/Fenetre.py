@@ -29,7 +29,7 @@ def affiche_fenetre():
     
     canvas = Canvas(fenetre, width=w, height=h, background='white')
     canvas.pack(side=LEFT)
-    bouttonTour = Button(fenetre, text ='Tour', command=terrain.tour3)
+    bouttonTour = Button(fenetre, text ='Tour', command=terrain.tour)
     bouttonTour.pack(side=RIGHT, padx=10, pady=10)
 
     affiche_jeu()
@@ -47,6 +47,19 @@ def affiche_jeu():
                             np.round(terrain.listeMobs[i].position[0] + terrain.listeMobs[i].size),
                             np.round(terrain.listeMobs[i].position[1] + terrain.listeMobs[i].size),
                             fill=terrain.listeMobs[i].color)
+            
+            canvas.create_rectangle(np.round(terrain.listeMobs[i].position[0] - terrain.listeMobs[i].size),
+                                np.round(terrain.listeMobs[i].position[1] - terrain.listeMobs[i].size - 7),
+                                np.round(terrain.listeMobs[i].position[0] - terrain.listeMobs[i].size*(1 - 2*terrain.listeMobs[i].life/terrain.listeMobs[i].lifeMax)),
+                                np.round(terrain.listeMobs[i].position[1] - terrain.listeMobs[i].size - 3),
+                                fill="green")
+            
+            canvas.create_rectangle(np.round(terrain.listeMobs[i].position[0] - terrain.listeMobs[i].size*(1 - 2*terrain.listeMobs[i].life/terrain.listeMobs[i].lifeMax)),
+                                np.round(terrain.listeMobs[i].position[1] - terrain.listeMobs[i].size - 7),
+                                np.round(terrain.listeMobs[i].position[0] + terrain.listeMobs[i].size),
+                                np.round(terrain.listeMobs[i].position[1] - terrain.listeMobs[i].size - 3),
+                                fill="red")
+
 
 def etatProchain():
     terrain.action()

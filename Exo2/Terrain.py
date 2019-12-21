@@ -69,7 +69,7 @@ class Terrain :
                     chevauchement=True
         return listeCoord
         
-    def tour3(self):
+    def tour(self):
         for i in range(len(self.listeMobs)):
             self.listeMobs[i].tourMob = True
         self.tourvar = True
@@ -116,18 +116,3 @@ class Terrain :
                     self.listeMobs[i].deltaAction()
                     return 0
         self.tourvar = False
-        #print("tour fini")
-        
-    def tour2(self):
-        for i in range(len(self.listeMobs)):
-            self.listeMobs[i].tourMob = True
-        self.tourvar = True
-        for i in range(len(self.listeMobs)):
-            if (i == 0):
-                self.listeMobs[i].deplacement(9)
-            else :
-                self.listeMobs[i].deplacement(0)
-    
-#terr=Terrain()
-#terr.listeMobs[0].observationDistanceEnnemie()
-#terr.listeMobs[0].deplacement(0)

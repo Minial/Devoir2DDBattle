@@ -47,7 +47,9 @@ def affiche_jeu():
                             np.round(terrain.listeMobs[i].position[0] + terrain.listeMobs[i].size),
                             np.round(terrain.listeMobs[i].position[1] + terrain.listeMobs[i].size),
                             fill=terrain.listeMobs[i].color)
-            
+    
+    for i in range(len(terrain.listeMobs)):
+        if (terrain.listeMobs[i].life > 0):
             canvas.create_rectangle(np.round(terrain.listeMobs[i].position[0] - terrain.listeMobs[i].size),
                                 np.round(terrain.listeMobs[i].position[1] - terrain.listeMobs[i].size - 7),
                                 np.round(terrain.listeMobs[i].position[0] - terrain.listeMobs[i].size*(1 - 2*terrain.listeMobs[i].life/terrain.listeMobs[i].lifeMax)),

@@ -9,6 +9,7 @@ class Barbare(Mob):
         + random.randint(1,12) + random.randint(1,12) + random.randint(1,12) + random.randint(1,12)
         + random.randint(1,12) + random.randint(1,12) + random.randint(1,12) + 65)
         self.lifeMax=self.life
+        self.will = 9
 
     def meleeAttack(self, _ac): # Renvoie les dégats que fait le barbare
         return(Mob.meleeAttack(self,_ac,19, 1, 8, 10, 3, 19))

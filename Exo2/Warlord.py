@@ -11,6 +11,7 @@ class Warlord(Mob):
         + random.randint(1,10) + random.randint(1,10) + random.randint(1,10)
         + random.randint(1,10) + 65)
         self.lifeMax=self.life
+        self.will = 6
 
 
     def meleeAttack(self, _ac): # Renvoie les dégats que fait le Warlord

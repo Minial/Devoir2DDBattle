@@ -7,6 +7,7 @@ class WorgRider(Mob):
         Mob.__init__(self, _x, _y, _la, _le, 15, 20, 18, 15, 60, 1, 1, "black")
         self.life = random.randint(1,10) + random.randint(1,10) + 2
         self.lifeMax=self.life
+        self.will = 1
 
     def meleeAttack(self, _ac): # Renvoie les dégats que fait le WorgRider
         return(Mob.meleeAttack(self,_ac,6, 1, 8, 2, 3))

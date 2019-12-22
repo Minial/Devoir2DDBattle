@@ -2,6 +2,8 @@ import random
 import numpy as np
 from Mob import Mob
 
+#https://www.d20pfsrd.com/bestiary/monster-listings/outsiders/angel/solar
+
 class Solar(Mob):
 
     def __init__(self, _x, _y, _la, _le):
@@ -13,12 +15,47 @@ class Solar(Mob):
         + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + random.randint(1,10)
         + random.randint(1,10) + random.randint(1,10) + random.randint(1,10) + 242)
         self.lifeMax=self.life#pour éviter de soigner un mob de plus que son max
+        self.will = 23
+        self.visibility = True
 
     def meleeAttack(self, _ac): # Renvoie les dégats que fait le Solar
         return(Mob.meleeAttack(self,_ac,35, 3, 6, 18))
 
     def rangedAttack(self, _ac): # Renvoie les dégats que fait le Solar
         return(Mob.rangedAttack(self,_ac, 31, 2, 6, 14))
+    
+    def spellAid(self, _idCible):
+        self.listAllies[_idCible].moralTouch+=1
+        self.listAllies[_idCible].moralDgt+=(random.randint(1,8)+10)
+        
+    def spellDispel(self, _idCible):
+        #fait rien actuellement
+        #sensé supprimer un sort lancé par un autre
+    
+    def spellHolySmite(self, _idCible):
+        cible = self.listEnnemie[_idCible]
+        observationDistanceEnnemie([cible.position[0], cible.position[1]])
+        i = 0
+        while (i<len(self.listEnnemie) and self.listeDistanceEnnemie[self.idNearestEnnemie[i]]<20):
+            degat = (random.randint(1,8) + random.randint(1,8) + random.randint(1,8) + random.randint(1,8) + random.randint(1,8))
+            jetWill = random.randint(1,20) + self.listeDistanceEnnemie[self.idNearestEnnemie[i]].will
+            if (jetWill >= 21):
+                degat = round(degat/2)
+            self.listeDistanceEnnemie[self.idNearestEnnemie[i]].life-=degat
+            i+=1
+    
+    def spellImprisonment(self, _idCible):
+        #attention uniquement distance 10 ou moins !
+        if (random.randint(1,20)+self.listEnnemie[_idCible].will < 26):
+            self.listEnnemie[_idCible].life=0
+    
+    def spellInvisibility(self):
+        
+    
+    
+    
+    
+    
     
     def IADecision(self, rayon, angle, action, cible1, cible2, cible3, cible4):
         #chaque param est entre 0 et 1 et sera remis dans l'intervarlle utile plus loin

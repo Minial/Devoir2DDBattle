@@ -20,6 +20,9 @@ class Mob:
         self.numberRanged = _numberRanged
         self.listeDistanceEnnemie = []#stock les distances des différents ennemies
         self.idNearestEnnemie = []
+        self.moralTouch = 0
+        self.moralDgt = 0
+        self.will = 0
         self.tourMob=False#le mob est en train de faire son tour
         self.canMeleeAttack=False#le mob peut taper melee
         self.canRangedAttack=False#le mob peut taper ranged
@@ -35,11 +38,11 @@ class Mob:
         else :
             degats=0#les dégats renvoyé
             if (d20 >= _critLuck):#critique ! on touche a coup sur avec double de dgt
-                degats = _bonusDegat*_multiCrit
+                degats = (_bonusDegat + self.moralDgt)*_multiCrit
                 for i in range (_diceNumber*_multiCrit):
                     degats=degats+random.randint(1,_dicePower)
-            elif (d20 + _taco > _ac):
-                degats = _bonusDegat
+            elif (d20 + _taco + self.moralTouch > _ac):
+                degats = _bonusDegat + self.moralTouch
                 for i in range (_diceNumber):
                     degats=degats+random.randint(1,_dicePower)
             #dans les autres cas on touche pas
@@ -54,11 +57,11 @@ class Mob:
         else :
             degats=0#les dégats renvoyé
             if (d20 >= _critLuck):#critique ! on touche a coup sur avec double de dgt
-                degats = _bonusDegat*_multiCrit
+                degats = (_bonusDegat + self.moralDgt)*_multiCrit
                 for i in range (_diceNumber*_multiCrit):
                     degats=degats+random.randint(1,_dicePower)
-            elif (d20 + _taco > _ac):#attaque normal
-                degats = _bonusDegat
+            elif (d20 + _taco + self.moralTouch > _ac):#attaque normal
+                degats = _bonusDegat + self.moralDgt
                 for i in range (_diceNumber):
                     degats=degats+random.randint(1,_dicePower)
             #dans les autres cas on touche pas

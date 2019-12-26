@@ -28,7 +28,7 @@ class Solar(Mob):
         self.listAllies[_idCible].moralTouch+=1
         self.listAllies[_idCible].moralDgt+=(random.randint(1,8)+10)
         
-    def spellDispel(self, _idCible):
+    #def spellDispel(self, _idCible):
         #fait rien actuellement
         #sensé supprimer un sort lancé par un autre
     
@@ -49,7 +49,7 @@ class Solar(Mob):
         if (random.randint(1,20)+self.listEnnemie[_idCible].will < 26):
             self.listEnnemie[_idCible].life=0
     
-    def spellInvisibility(self):
+    #def spellInvisibility(self):
         
     
     
